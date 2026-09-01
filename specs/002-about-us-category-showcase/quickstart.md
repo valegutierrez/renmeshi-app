@@ -46,3 +46,13 @@ npm run build
 Expected outcomes: both commands exit successfully, TypeScript emits no errors, and the Vite production build completes. Browser checks should additionally report no horizontal overflow at 320 px, no console errors, and no missing required asset requests.
 
 See [data-model.md](data-model.md) for category and content validation rules and [contracts/ui-and-routing.md](contracts/ui-and-routing.md) for the browser-visible route and accessibility contract.
+
+## Validation Record
+
+Feature validation completed at 1440 px and 320 px. The homepage renders the required
+latest-recipes, explanation, category, and footer sequence; About Us renders the portrait,
+story, statement band, and footer; category links select the matching existing filter; the
+mobile menu opens by keyboard-accessible button; and both tested widths report no horizontal
+overflow. The existing automated suite, TypeScript checks, production build, server typecheck,
+and lint all pass. Lint retains the pre-existing Fast Refresh warning in
+`src/app/theme/theme-provider.tsx`.

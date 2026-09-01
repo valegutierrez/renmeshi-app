@@ -12,9 +12,9 @@
 
 **Purpose**: Confirm the existing single-project surface and approved assets before implementation.
 
-- [ ] T001 Verify the active React/Vite entry points and preserve existing hash routes in `src/App.tsx`, `src/App.css`, and `src/index.css`
-- [ ] T002 [P] Verify the approved pixel-art, logo, font, and portrait assets exist under `src/assets/`, including `src/assets/pixelart/appetizer.png`, `src/assets/pixelart/main-dish.png`, `src/assets/pixelart/side-dish.png`, `src/assets/pixelart/dessert.png`, and `src/assets/creator-portrait.jpg`
-- [ ] T003 [P] Record the creator portrait provenance and confirm its approved crop/source for `src/assets/creator-portrait.jpg`
+- [X] T001 Verify the active React/Vite entry points and preserve existing hash routes in `src/App.tsx`, `src/App.css`, and `src/index.css`
+- [X] T002 [P] Verify the approved pixel-art, logo, font, and portrait assets exist under `src/assets/`, including `src/assets/pixelart/appetizer.png`, `src/assets/pixelart/main-dish.png`, `src/assets/pixelart/side-dish.png`, `src/assets/pixelart/dessert.png`, and `src/assets/creator-portrait.jpg`
+- [X] T003 [P] Record the creator portrait provenance and confirm its approved crop/source for `src/assets/creator-portrait.jpg`
 
 ---
 
@@ -24,13 +24,13 @@
 
 **Critical**: Complete this phase before implementing either user-facing story.
 
-- [ ] T004 Define typed About Us content and four display-label-to-`RecipeCategory` mappings in `src/models/about-us.ts` and `src/models/recipe.ts`
-- [ ] T005 Implement shared public route selection for the homepage, About Us, and existing recipe/backstage routes in `src/App.tsx`
-- [ ] T006 Implement reusable public header and footer composition with the approved logo assets under `src/assets/` in `src/App.tsx`
-- [ ] T007 Add the local Pixelpori `@font-face`, font-role variables, spacing tokens, container geometry, and focus tokens in `src/index.css`
-- [ ] T008 Replace touched public-surface color literals with semantic Material theme variables and add synchronized light, dark, medium-contrast, and high-contrast token mappings in `src/index.css` and `src/main.tsx`
-- [ ] T009 [P] Add reusable seigaiha-pattern section styling, centered content rail, responsive page gutters, and no-overflow rules in `src/App.css`
-- [ ] T010 [P] Add shared responsive header, footer, panel, focus, and reduced-motion states in `src/App.css`
+- [X] T004 Define typed About Us content and four display-label-to-`RecipeCategory` mappings in `src/models/about-us.ts` and `src/models/recipe.ts`
+- [X] T005 Implement shared public route selection for the homepage, About Us, and existing recipe/backstage routes in `src/App.tsx`
+- [X] T006 Implement reusable public header and footer composition with the approved logo assets under `src/assets/` in `src/App.tsx`
+- [X] T007 Add the local Pixelpori `@font-face`, font-role variables, spacing tokens, container geometry, and focus tokens in `src/index.css`
+- [X] T008 Replace touched public-surface color literals with semantic Material theme variables and add synchronized light, dark, medium-contrast, and high-contrast token mappings in `src/index.css` and `src/main.tsx`
+- [X] T009 [P] Add reusable seigaiha-pattern section styling, centered content rail, responsive page gutters, and no-overflow rules in `src/App.css`
+- [X] T010 [P] Add shared responsive header, footer, panel, focus, and reduced-motion states in `src/App.css`
 
 **Checkpoint**: Shared routing, assets, typography, theme tokens, and responsive primitives are ready; user stories can proceed independently.
 
@@ -44,12 +44,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T011 [P] [US1] Add the About Us page content object, creator names, story paragraphs, statement copy, footer message, portrait alternative text, and `src/assets/creator-portrait.jpg` reference in `src/models/about-us.ts`
-- [ ] T012 [US1] Render the About Us semantic main region with one primary heading, portrait frame, ordered story paragraphs, statement band, and shared footer in `src/App.tsx`
-- [ ] T013 [US1] Implement the desktop About Us two-column Grid with portrait-left/story-right placement, centered rail, stable `aspect-ratio`, rounded overflow frame, and `object-fit: cover` in `src/App.css`
-- [ ] T014 [US1] Implement the About Us 800 px grid-to-stack transition and 520 px compact spacing rules in `src/App.css`
-- [ ] T015 [US1] Add About Us active navigation state, semantic labels, portrait alternative text, visible focus states, and keyboard-safe mobile menu behavior in `src/App.tsx` and `src/App.css`
-- [ ] T016 [US1] Run the About Us responsive and theme validation from `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx` at 1440 px, 800 px, 520 px, 375 px, and 320 px
+- [X] T011 [P] [US1] Add the About Us page content object, creator names, story paragraphs, statement copy, footer message, portrait alternative text, and `src/assets/creator-portrait.jpg` reference in `src/models/about-us.ts`
+- [X] T012 [US1] Render the About Us semantic main region with one primary heading, portrait frame, ordered story paragraphs, statement band, and shared footer in `src/App.tsx`
+- [X] T013 [US1] Implement the desktop About Us two-column Grid with portrait-left/story-right placement, centered rail, stable `aspect-ratio`, rounded overflow frame, and `object-fit: cover` in `src/App.css`
+- [X] T014 [US1] Implement the About Us 800 px grid-to-stack transition and 520 px compact spacing rules in `src/App.css`
+- [X] T015 [US1] Add About Us active navigation state, semantic labels, portrait alternative text, visible focus states, and keyboard-safe mobile menu behavior in `src/App.tsx` and `src/App.css`
+- [X] T016 [US1] Run the About Us responsive and theme validation from `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx` at 1440 px, 800 px, 520 px, 375 px, and 320 px
 
 **Checkpoint**: User Story 1 is independently usable and demonstrates the MVP About Us experience.
 
@@ -63,12 +63,12 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Define the four `RecipeCategoryLink` records with singular labels, existing plural category values, exact image paths, alt text, and sort order in `src/models/about-us.ts`
-- [ ] T018 [US2] Implement the four-item category panel with keyboard-focusable links, resilient labels, image loading behavior, and matching hash/filter destinations in `src/App.tsx`
-- [ ] T019 [US2] Implement desktop four-track category Grid, stable pixel-art image regions, nearest-neighbor rendering, panel framing, hover/focus states, and seigaiha background in `src/App.css`
-- [ ] T020 [US2] Implement the 800 px two-track fallback and 520 px one-column ordered category stack with consistent vertical spacing in `src/App.css`
-- [ ] T021 [US2] Preserve existing free-text, time, and category filtering while applying category-link destinations in `src/App.tsx` and `src/lib/recipe-filtering.ts`
-- [ ] T022 [US2] Run the category interaction, missing-image fallback, keyboard focus, theme, and responsive validation from `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx`
+- [X] T017 [P] [US2] Define the four `RecipeCategoryLink` records with singular labels, existing plural category values, exact image paths, alt text, and sort order in `src/models/about-us.ts`
+- [X] T018 [US2] Implement the four-item category panel with keyboard-focusable links, resilient labels, image loading behavior, and matching hash/filter destinations in `src/App.tsx`
+- [X] T019 [US2] Implement desktop four-track category Grid, stable pixel-art image regions, nearest-neighbor rendering, panel framing, hover/focus states, and seigaiha background in `src/App.css`
+- [X] T020 [US2] Implement the 800 px two-track fallback and 520 px one-column ordered category stack with consistent vertical spacing in `src/App.css`
+- [X] T021 [US2] Preserve existing free-text, time, and category filtering while applying category-link destinations in `src/App.tsx` and `src/lib/recipe-filtering.ts`
+- [X] T022 [US2] Run the category interaction, missing-image fallback, keyboard focus, theme, and responsive validation from `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx`
 
 **Checkpoint**: User Stories 1 and 2 both work independently; category links provide direct recipe discovery without replacing existing filters.
 
@@ -82,13 +82,13 @@
 
 ### Implementation for User Story 3
 
-- [ ] T023 [US3] Compose the homepage section order with latest-recipes showcase, Renmeshi explanation, category showcase, and shared footer in `src/App.tsx`
-- [ ] T024 [US3] Add the Pixelpori hero heading, latest-recipes panel, recipe-card presentation, and view-all-recipes action without removing existing search/filter controls in `src/App.tsx`
-- [ ] T025 [US3] Implement the desktop latest-recipes Grid with three recipe-card tracks and a view-all action track, plus Flexbox card internals, in `src/App.css`
-- [ ] T026 [US3] Implement the Renmeshi explanation band with centered heading, constrained readable copy measure, and responsive spacing in `src/App.css`
-- [ ] T027 [US3] Implement homepage desktop and mobile section spacing, pattern bands, panel hierarchy, and full-width teal semantic footer treatment in `src/App.css`
-- [ ] T028 [US3] Verify homepage section semantics, heading hierarchy, responsive order, accessible action names, and existing recipe/detail navigation in `src/App.tsx`
-- [ ] T029 [US3] Run the full homepage visual, route, theme, focus, image, and no-overflow validation from `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx` at 1440 px, 1024 px, 800 px, 520 px, 375 px, and 320 px
+- [X] T023 [US3] Compose the homepage section order with latest-recipes showcase, Renmeshi explanation, category showcase, and shared footer in `src/App.tsx`
+- [X] T024 [US3] Add the Pixelpori hero heading, latest-recipes panel, recipe-card presentation, and view-all-recipes action without removing existing search/filter controls in `src/App.tsx`
+- [X] T025 [US3] Implement the desktop latest-recipes Grid with three recipe-card tracks and a view-all action track, plus Flexbox card internals, in `src/App.css`
+- [X] T026 [US3] Implement the Renmeshi explanation band with centered heading, constrained readable copy measure, and responsive spacing in `src/App.css`
+- [X] T027 [US3] Implement homepage desktop and mobile section spacing, pattern bands, panel hierarchy, and full-width teal semantic footer treatment in `src/App.css`
+- [X] T028 [US3] Verify homepage section semantics, heading hierarchy, responsive order, accessible action names, and existing recipe/detail navigation in `src/App.tsx`
+- [X] T029 [US3] Run the full homepage visual, route, theme, focus, image, and no-overflow validation from `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx` at 1440 px, 1024 px, 800 px, 520 px, 375 px, and 320 px
 
 **Checkpoint**: All three user stories are independently testable and the complete homepage/About Us flow matches the documented design strategy.
 
@@ -98,12 +98,12 @@
 
 **Purpose**: Verify the complete feature against the constitution, plan, contracts, and quickstart.
 
-- [ ] T030 [P] Audit `src/App.tsx`, `src/App.css`, `src/index.css`, and `src/main.tsx` for hard-coded component colors, missing theme variants, and font-role deviations from `specs/002-about-us-category-showcase/plan.md`
-- [ ] T031 [P] Audit all public images and interactive elements in `src/App.tsx` for alt text, accessible names, visible focus, semantic headings, and keyboard reachability
-- [ ] T032 [P] Check rendered public layouts for horizontal overflow and clipped text at 320 px and browser zoom using the validation cases in `specs/002-about-us-category-showcase/quickstart.md`
-- [ ] T033 Run `npm run lint` and resolve feature-related diagnostics in `src/App.tsx`, `src/App.css`, `src/index.css`, `src/main.tsx`, and `src/models/about-us.ts`
-- [ ] T034 Run `npm run build` and resolve feature-related TypeScript or Vite errors in `src/App.tsx` and the other changed source files
-- [ ] T035 Run the complete validation in `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx` and record any residual limitations in `specs/002-about-us-category-showcase/quickstart.md`
+- [X] T030 [P] Audit `src/App.tsx`, `src/App.css`, `src/index.css`, and `src/main.tsx` for hard-coded component colors, missing theme variants, and font-role deviations from `specs/002-about-us-category-showcase/plan.md`
+- [X] T031 [P] Audit all public images and interactive elements in `src/App.tsx` for alt text, accessible names, visible focus, semantic headings, and keyboard reachability
+- [X] T032 [P] Check rendered public layouts for horizontal overflow and clipped text at 320 px and browser zoom using the validation cases in `specs/002-about-us-category-showcase/quickstart.md`
+- [X] T033 Run `npm run lint` and resolve feature-related diagnostics in `src/App.tsx`, `src/App.css`, `src/index.css`, `src/main.tsx`, and `src/models/about-us.ts`
+- [X] T034 Run `npm run build` and resolve feature-related TypeScript or Vite errors in `src/App.tsx` and the other changed source files
+- [X] T035 Run the complete validation in `specs/002-about-us-category-showcase/quickstart.md` against `src/App.tsx` and record any residual limitations in `specs/002-about-us-category-showcase/quickstart.md`
 
 ---
 
