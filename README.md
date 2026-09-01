@@ -30,3 +30,39 @@ If you are developing a production application, we recommend enabling type-aware
 ```
 
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+
+## Renmeshi development
+
+Install dependencies with `npm install`. Run the frontend and API in separate terminals:
+
+```bash
+npm run dev
+npm run server
+```
+
+Open the Vite URL, normally `http://localhost:5173`. The API runs at
+`http://localhost:3001`; set `VITE_API_BASE_URL` if it runs elsewhere.
+
+The development Backstage fixture is:
+
+```text
+Admin name: demo-admin
+Password: renmeshi-demo
+```
+
+Configure a different admin or datastore by exporting `RENMESHI_ADMIN_NAME`,
+`RENMESHI_ADMIN_PASSWORD`, `RENMESHI_STORE_PATH`, and `PORT` before `npm run server`.
+The same values are documented in `.env.example`. Recipe data is stored under `data/`,
+which is ignored by Git.
+
+Available checks:
+
+```bash
+npm run lint
+npm run build
+npm test
+npm run test:browser
+```
+
+`test:browser` starts the configured Vite and API servers automatically when they are not
+already running. Install Playwright Chromium once with `npx playwright install chromium`.

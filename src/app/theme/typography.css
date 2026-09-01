@@ -1,0 +1,11 @@
+@font-face {
+  font-family: Pixelpori;
+  src: url('../../assets/fonts/pixelpori.ttf') format('truetype');
+  font-display: swap;
+}
+
+:root {
+  --rm-heading-font: Raleway, sans-serif;
+  --rm-body-font: Poppins, sans-serif;
+  --rm-label-font: Pixelpori, monospace;
+}

@@ -183,20 +183,24 @@
   }
 }
 
-:root { --ink: #14211f; --muted: #65726e; --paper: #f5f1e8; --panel: #fffdf8; --line: #d9d0c0; --teal: #087d73; --teal-dark: #075c56; --coral: #d85e4b; --violet: #7658a8; --gold: #c38b27; --lime: #668f45; --shadow: 5px 5px 0 rgba(20, 33, 31, .13); }
-[data-theme='dark'] { --ink: #f6f0e1; --muted: #b8c1bb; --paper: #172521; --panel: #21342e; --line: #46625a; --teal: #71d6c7; --teal-dark: #b3f1e6; --coral: #ff9d82; --violet: #c4a8ef; --gold: #f0c66e; --lime: #b5db8d; --shadow: 5px 5px 0 rgba(0, 0, 0, .3); }
+:root { --ink: var(--rm-ink); --muted: var(--rm-muted); --paper: var(--rm-surface); --panel: var(--rm-surface-raised); --line: var(--rm-line); --teal: #087d73; --teal-dark: #075c56; --coral: #d85e4b; --violet: #7658a8; --gold: #c38b27; --lime: #668f45; --shadow: 5px 5px 0 rgba(20, 33, 31, .13); }
+[data-theme='dark'] { --teal: #71d6c7; --teal-dark: #b3f1e6; --coral: #ff9d82; --violet: #c4a8ef; --gold: #f0c66e; --lime: #b5db8d; --shadow: 5px 5px 0 rgba(0, 0, 0, .3); }
+[data-contrast='high'] { --teal: #00574f; --teal-dark: #003d38; --coral: #8e1f0d; --violet: #4e2f80; --gold: #725000; --lime: #385b19; }
 * { box-sizing: border-box; }
-body { color: var(--ink); background: var(--paper); font-family: 'Poppins', 'Trebuchet MS', sans-serif; }
-h1, h2, h3 { color: var(--ink); font-family: Raleway, sans-serif; }
+body { color: var(--ink); background: var(--paper); font-family: var(--rm-body-font); }
+h1, h2, h3 { color: var(--ink); font-family: var(--rm-heading-font); }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
 a { color: inherit; }
 .app-shell { min-height: 100vh; background: radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--coral) 12%, transparent), transparent 26rem), var(--paper); }
 .topbar { max-width: 1180px; margin: auto; padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--line); }
-.brand { text-decoration: none; display: flex; align-items: center; gap: 12px; font-family: Raleway, sans-serif; font-weight: 800; letter-spacing: .03em; }
+.brand { text-decoration: none; display: flex; align-items: center; gap: 12px; font-family: var(--rm-heading-font); font-weight: 800; letter-spacing: .03em; }
 .brand-mark { background: var(--teal); color: var(--paper); padding: 9px 8px 7px; box-shadow: 3px 3px 0 var(--ink); font-family: 'Roboto Mono', monospace; font-size: 13px; }
 .brand small { display: block; color: var(--muted); font: 700 10px 'Roboto Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
+.wordmark { width: 145px; height: auto; display: block; }
+.footer { max-width: 1180px; margin: auto; padding: 24px 28px; border-top: 2px solid var(--line); }
+.footer img { width: 32px; image-rendering: pixelated; }
 .top-actions { display: flex; gap: 10px; align-items: center; }
 .icon-button, .nav-button { border: 2px solid var(--line); background: var(--panel); color: var(--ink); padding: 9px 12px; box-shadow: 2px 2px 0 var(--line); text-decoration: none; font-size: 13px; font-weight: 700; }
 .icon-button:hover, .nav-button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--line); }
@@ -219,7 +223,8 @@ h3 { font-size: 21px; }
 .recipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .recipe-card { background: var(--panel); border: 2px solid var(--line); min-height: 235px; display: flex; flex-direction: column; text-decoration: none; box-shadow: 3px 3px 0 var(--line); transition: transform .2s, box-shadow .2s; }
 .recipe-card:hover { transform: translateY(-4px); box-shadow: 6px 7px 0 var(--line); }
-.card-art { min-height: 88px; padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; color: #fff; font: 700 12px 'Roboto Mono', monospace; }
+.card-art { min-height: 88px; padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; color: #fff; font: 700 12px 'Roboto Mono', monospace; position: relative; overflow: hidden; }
+.card-art img { position: absolute; right: 34px; bottom: 0; width: 82px; height: 82px; object-fit: contain; image-rendering: pixelated; }
 .card-art.coral { background: var(--coral); }.card-art.teal { background: var(--teal); color: var(--ink); }.card-art.lime { background: var(--lime); color: var(--ink); }.card-art.violet { background: var(--violet); }.card-art.gold { background: var(--gold); color: var(--ink); }
 .card-emoji { font-size: 38px; filter: saturate(.7); }
 .card-body { padding: 17px; display: grid; gap: 12px; flex: 1; }

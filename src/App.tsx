@@ -2,19 +2,20 @@ import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import { categories, recipes, type Recipe, type RecipeCategory } from './models/recipe'
 import { filterRecipes, type TimeBand } from './lib/recipe-filtering'
-import { scaledIngredients } from './lib/serving-scaling'
+import { fetchHistory, fetchRecipes, getServerAuthStatus, saveRecipeToServer, signInWithServer, signOutFromServer, type RecipeHistoryEntry } from './services/api'
+import { AppShell } from './app/AppShell'
+import { initialRoute, recipeIdFromRoute } from './app/routes'
+import { RecipeCard } from './features/discovery/RecipeCard'
+import { RecipeEmptyState } from './features/discovery/RecipeEmptyState'
+import { RecipeFilters } from './features/discovery/RecipeFilters'
+import { RecipeDetailPage } from './features/recipe-detail/RecipeDetailPage'
 
 function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => window.localStorage.getItem('renmeshi-theme') === 'dark' ? 'dark' : 'light')
-  const [route, setRoute] = useState(window.location.hash || '#/')
+  const [route, setRoute] = useState(initialRoute)
   const [category, setCategory] = useState<RecipeCategory | 'All'>('All')
   const [timeBand, setTimeBand] = useState<TimeBand | 'all'>('all')
   const [search, setSearch] = useState('')
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    window.localStorage.setItem('renmeshi-theme', theme)
-  }, [theme])
+  const [recipeCollection, setRecipeCollection] = useState(recipes)
 
   useEffect(() => {
     const onHashChange = () => setRoute(window.location.hash || '#/')
@@ -22,48 +23,52 @@ function App() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
-  const visibleRecipes = useMemo(() => filterRecipes(recipes, category, timeBand, search), [category, timeBand, search])
-  const detailId = route.startsWith('#/recipe/') ? route.replace('#/recipe/', '') : ''
-  const detail = recipes.find((recipe) => recipe.id === detailId)
+  useEffect(() => {
+    fetchRecipes().then(setRecipeCollection).catch(() => undefined)
+  }, [])
 
-  const toggleTheme = () => setTheme((value) => value === 'light' ? 'dark' : 'light')
+  const visibleRecipes = useMemo(() => filterRecipes(recipeCollection, category, timeBand, search), [recipeCollection, category, timeBand, search])
+  const detailId = recipeIdFromRoute(route)
+  const detail = recipeCollection.find((recipe) => recipe.id === detailId)
 
   return (
-    <div className="app-shell">
-      <header className="topbar">
-        <a className="brand" href="#/"><span className="brand-mark">RM</span><span>RENMESHI<small>Tonight's menu, sorted.</small></span></a>
-        <nav className="top-actions" aria-label="Main navigation"><a className="nav-button" href="#/backstage">Backstage ↗</a><button className="icon-button" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>{theme === 'light' ? '☾ Dark' : '☀ Light'}</button></nav>
-      </header>
+    <AppShell>
       <main className="main">
-        {detail ? <RecipeDetail recipe={detail} /> : route === '#/backstage' ? <Backstage /> : <>
+        {detail ? <RecipeDetailPage recipe={detail} /> : route === '#/backstage' ? <Backstage recipes={recipeCollection} onSaved={(recipe) => setRecipeCollection((current) => [...current.filter((item) => item.id !== recipe.id), recipe])} /> : <>
           <section className="hero-copy"><div><p className="eyebrow">Your tiny cooking sidekick</p><h1>What are we cooking tonight?</h1></div><p>Good food does not need a grand plan. Pick a mood, pick a timer, and let dinner find you.</p></section>
           <div className="wave-strip" aria-hidden="true" />
-          <section className="filters" aria-label="Recipe filters"><div className="field"><label htmlFor="search">Search the pantry</label><input id="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Try tofu, sweet, quick..." /></div><div className="field"><label htmlFor="category">Category</label><select id="category" value={category} onChange={(event) => setCategory(event.target.value as RecipeCategory | 'All')}><option>All</option>{categories.map((item) => <option key={item}>{item}</option>)}</select></div><div className="field"><label htmlFor="time">Time</label><select id="time" value={timeBand} onChange={(event) => setTimeBand(event.target.value as TimeBand | 'all')}><option value="all">Any time</option><option value="under15">Under 15 min</option><option value="15to30">15-30 min</option><option value="30to60">30-60 min</option><option value="60plus">60+ min</option></select></div><button className="clear-button" type="button" onClick={() => { setCategory('All'); setTimeBand('all'); setSearch('') }}>Clear ×</button></section>
+          <RecipeFilters category={category} timeBand={timeBand} search={search} onCategoryChange={setCategory} onTimeBandChange={setTimeBand} onSearchChange={setSearch} onClear={() => { setCategory('All'); setTimeBand('all'); setSearch('') }} />
           <div className="result-head"><h2>Tonight's picks</h2><span className="result-count">{visibleRecipes.length} RECIPES FOUND</span></div>
-          {visibleRecipes.length ? <div className="recipe-grid">{visibleRecipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}</div> : <div className="empty"><h3>Nothing in the pot yet.</h3><p>Try loosening a filter or search for something else.</p></div>}
+          {visibleRecipes.length ? <div className="recipe-grid">{visibleRecipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}</div> : <RecipeEmptyState />}
         </>}
       </main>
-    </div>
+    </AppShell>
   )
 }
 
-function RecipeCard({ recipe }: { recipe: Recipe }) {
-  return <a className="recipe-card" href={`#/recipe/${recipe.id}`}><div className={`card-art ${recipe.accent}`}><span>{recipe.category.toUpperCase()}</span><span className="card-emoji" aria-hidden="true">{recipe.category === 'Desserts' ? '✦' : recipe.category === 'Sides' ? '◌' : recipe.category === 'Appetizers' ? '◇' : '✺'}</span></div><div className="card-body"><h3>{recipe.name}</h3><p>{recipe.keywords.slice(0, 3).join(' · ')}</p><div className="meta-row"><span>{recipe.cookingTimeMinutes} min</span><span>{recipe.baseServings} servings</span></div></div></a>
-}
+function Backstage({ recipes: recipeCollection, onSaved }: { recipes: Recipe[]; onSaved: (recipe: Recipe) => void }) {
+  const [signedIn, setSignedIn] = useState(() => getServerAuthStatus().authenticated)
+  const [name, setName] = useState('demo-admin')
+  const [password, setPassword] = useState('renmeshi-demo')
+  const [error, setError] = useState('')
+  const [history, setHistory] = useState<RecipeHistoryEntry[]>([])
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [form, setForm] = useState({ name: '', category: 'Mains' as RecipeCategory, cookingTime: '20', servings: '2', ingredients: '', instructions: '' })
 
-function RecipeDetail({ recipe }: { recipe: Recipe }) {
-  const [servings, setServings] = useState(recipe.baseServings)
-  const [checked, setChecked] = useState<Record<string, boolean>>(() => JSON.parse(window.localStorage.getItem(`renmeshi-checks-${recipe.id}`) || '{}'))
-  const ingredients = scaledIngredients(recipe.ingredients, recipe.baseServings, servings)
-  const updateChecked = (id: string) => setChecked((current) => { const next = { ...current, [id]: !current[id] }; window.localStorage.setItem(`renmeshi-checks-${recipe.id}`, JSON.stringify(next)); return next })
-  return <><div className="detail-header"><a className="back-link" href="#/">← Back to the pantry</a><span className="eyebrow">{recipe.category} / {recipe.cookingTimeMinutes} min</span></div><section className="detail-header"><div><p className="eyebrow">Recipe card</p><h1>{recipe.name}</h1></div><p>{recipe.keywords.join(' · ')}</p></section><div className="detail-layout"><div><section className="detail-panel"><h2>Gather your bits</h2><div className="ingredients">{ingredients.map((ingredient) => <label className={`ingredient ${checked[ingredient.id] ? 'checked' : ''}`} key={ingredient.id}><input type="checkbox" checked={Boolean(checked[ingredient.id])} onChange={() => updateChecked(ingredient.id)} /><span>{ingredient.displayText}</span></label>)}</div><div className="scale-row"><strong>Serves</strong><input className="serving-input" type="number" min="1" value={servings} onChange={(event) => { const next = Number(event.target.value); if (next > 0) setServings(next) }} aria-label="Number of servings" /></div></section></div><section className="detail-panel"><h2>Make it happen</h2><ol className="step-list">{recipe.instructions.map((step) => <li key={step}>{step}</li>)}</ol></section></div></>
-}
+  useEffect(() => {
+    if (signedIn) fetchHistory().then(setHistory).catch((reason: Error) => setError(reason.message))
+  }, [signedIn])
 
-function Backstage() {
-  const [signedIn, setSignedIn] = useState(() => window.localStorage.getItem('renmeshi-admin') === 'yes')
-  const [name, setName] = useState('')
-  if (!signedIn) return <section className="detail-panel" style={{ maxWidth: 480, margin: '60px auto' }}><p className="eyebrow">Private kitchen</p><h1>Backstage</h1><p style={{ margin: '20px 0' }}>Sign in to manage tonight's menu.</p><form className="editor" onSubmit={(event) => { event.preventDefault(); if (name) { window.localStorage.setItem('renmeshi-admin', 'yes'); setSignedIn(true) } }}><div className="field"><label htmlFor="admin-name">Admin name</label><input id="admin-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="demo-admin" required /></div><button className="primary-button" type="submit">Enter the kitchen</button></form></section>
-  return <><div className="detail-header"><div><p className="eyebrow">The private kitchen</p><h1>Backstage</h1></div><button className="nav-button" type="button" onClick={() => { window.localStorage.removeItem('renmeshi-admin'); setSignedIn(false) }}>Sign out</button></div><div className="admin-grid"><section className="detail-panel"><h2>Menu log</h2><div className="notice">Demo workspace ready. Connect the protected recipe service before production use.</div><div className="history"><div className="history-row"><span><strong>Miso Butter Noodles</strong><br /><small>edited by demo-admin</small></span><small>Today, 18:42</small></div><div className="history-row"><span><strong>Ginger Cucumber Salad</strong><br /><small>created by demo-admin</small></span><small>Yesterday, 12:10</small></div></div></section><section className="detail-panel"><h2>Add a recipe</h2><form className="editor" onSubmit={(event) => event.preventDefault()}><input aria-label="Recipe name" placeholder="Recipe name" /><select aria-label="Recipe category" defaultValue="Mains"><option>Appetizers</option><option>Mains</option><option>Sides</option><option>Desserts</option></select><input aria-label="Cooking time" type="number" placeholder="Cooking time (minutes)" min="1" /><textarea aria-label="Ingredients" placeholder="Ingredients, one per line" /><textarea aria-label="Instructions" placeholder="Instructions, one per line" /><button className="primary-button" type="submit">Save recipe</button></form></section></div></>
+  const resetForm = () => { setEditingId(null); setForm({ name: '', category: 'Mains', cookingTime: '20', servings: '2', ingredients: '', instructions: '' }) }
+  const editRecipe = (recipe: Recipe) => {
+    setEditingId(recipe.id)
+    setForm({ name: recipe.name, category: recipe.category, cookingTime: String(recipe.cookingTimeMinutes), servings: String(recipe.baseServings), ingredients: recipe.ingredients.map((item) => item.displayText).join('\n'), instructions: recipe.instructions.join('\n') })
+  }
+  const updateForm = (field: keyof typeof form, value: string) => setForm((current) => ({ ...current, [field]: value }))
+
+  if (!signedIn) return <section className="detail-panel" style={{ maxWidth: 480, margin: '60px auto' }}><p className="eyebrow">Private kitchen</p><h1>Backstage</h1><p style={{ margin: '20px 0' }}>Sign in to manage tonight's menu.</p><form className="editor" onSubmit={async (event) => { event.preventDefault(); setError(''); try { await signInWithServer(name, password); setSignedIn(true) } catch (reason) { setError(reason instanceof Error ? reason.message : 'Unable to sign in') } }}><div className="field"><label htmlFor="admin-name">Admin name</label><input id="admin-name" value={name} onChange={(event) => setName(event.target.value)} required /></div><div className="field"><label htmlFor="admin-password">Password</label><input id="admin-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></div>{error && <p role="alert" className="notice">{error}</p>}<button className="primary-button" type="submit">Enter the kitchen</button></form></section>
+
+  return <><div className="detail-header"><div><p className="eyebrow">The private kitchen</p><h1>Backstage</h1></div><button className="nav-button" type="button" onClick={async () => { await signOutFromServer(); setSignedIn(false) }}>Sign out</button></div><div className="admin-grid"><section className="detail-panel"><h2>Menu log</h2>{error && <p role="alert" className="notice">{error}</p>}<div className="history">{history.length ? history.map((entry) => <div className="history-row" key={entry.id}><span><strong>{entry.recipeName}</strong><br /><small>{entry.action} by {entry.actor}</small></span><small>{new Date(entry.timestamp).toLocaleString()}</small></div>) : <p>No changes recorded yet.</p>}</div><h2>Current menu</h2><div className="history">{recipeCollection.map((recipe) => <div className="history-row" key={recipe.id}><strong>{recipe.name}</strong><button className="nav-button" type="button" onClick={() => editRecipe(recipe)}>Edit</button></div>)}</div></section><section className="detail-panel"><h2>{editingId ? 'Edit recipe' : 'Add a recipe'}</h2><form className="editor" onSubmit={async (event) => { event.preventDefault(); setError(''); const cookingTime = Number(form.cookingTime); const servings = Number(form.servings); const ingredientLines = form.ingredients.split('\n').map((line) => line.trim()).filter(Boolean); const instructionLines = form.instructions.split('\n').map((line) => line.trim()).filter(Boolean); if (!form.name.trim() || !Number.isInteger(cookingTime) || cookingTime < 1 || !Number.isFinite(servings) || servings <= 0 || ingredientLines.length === 0 || instructionLines.length === 0) { setError('Enter a name, whole-minute cooking time, positive servings, at least one ingredient, and one instruction.'); return } const generatedId = form.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); const id = editingId ?? (generatedId || `recipe-${Date.now()}`); const ingredients = ingredientLines.map((displayText, index) => ({ id: `${id}-ingredient-${index + 1}`, name: displayText, displayText, scalable: false })); const recipe: Recipe = { id, name: form.name.trim(), category: form.category, cookingTimeMinutes: cookingTime, baseServings: servings, keywords: form.name.toLowerCase().split(/\s+/).filter(Boolean), ingredients, instructions: instructionLines, accent: 'teal' }; try { const saved = await saveRecipeToServer(recipe, Boolean(editingId)); onSaved(saved); const nextHistory = await fetchHistory(); setHistory(nextHistory); resetForm() } catch (reason) { setError(reason instanceof Error ? reason.message : 'Unable to save recipe') } }}><input aria-label="Recipe name" value={form.name} onChange={(event) => updateForm('name', event.target.value)} placeholder="Recipe name" required /><select aria-label="Recipe category" value={form.category} onChange={(event) => updateForm('category', event.target.value)}>{categories.map((category) => <option key={category}>{category}</option>)}</select><input aria-label="Cooking time" value={form.cookingTime} onChange={(event) => updateForm('cookingTime', event.target.value)} type="number" placeholder="Cooking time (minutes)" min="1" step="1" required /><input aria-label="Servings" value={form.servings} onChange={(event) => updateForm('servings', event.target.value)} type="number" placeholder="Servings" min="0.1" step="0.1" required /><textarea aria-label="Ingredients" value={form.ingredients} onChange={(event) => updateForm('ingredients', event.target.value)} placeholder="Ingredients, one per line" required /><textarea aria-label="Instructions" value={form.instructions} onChange={(event) => updateForm('instructions', event.target.value)} placeholder="Instructions, one per line" required /><button className="primary-button" type="submit">{editingId ? 'Update recipe' : 'Save recipe'}</button>{editingId && <button className="nav-button" type="button" onClick={resetForm}>Cancel edit</button>}</form></section></div></>
 }
 
 export default App

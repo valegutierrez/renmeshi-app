@@ -17,11 +17,11 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 **Purpose**: Establish the full-stack TypeScript structure and development commands without changing user-facing behavior.
 
-- [ ] T001 Create the planned frontend and server directories under `src/`, `server/`, and `tests/` without adding unused framework scaffolding.
-- [ ] T002 [P] Add the approved TypeScript-compatible unit, integration, and browser test dependencies and test scripts in `package.json`.
-- [ ] T003 [P] Add server development/build entry points and environment variable documentation in `server/index.ts` and `.env.example`.
-- [ ] T004 [P] Configure test, browser, and TypeScript path settings in `vitest.config.ts`, `playwright.config.ts`, and `tsconfig.json`.
-- [ ] T005 [P] Define shared recipe, ingredient, history, session, and theme types in `src/models/recipe.ts`, `src/models/auth.ts`, and `src/models/theme.ts`.
+- [X] T001 Create the planned frontend and server directories under `src/`, `server/`, and `tests/` without adding unused framework scaffolding.
+- [X] T002 [P] Add the approved TypeScript-compatible unit, integration, and browser test dependencies and test scripts in `package.json`.
+- [X] T003 [P] Add server development/build entry points and environment variable documentation in `server/index.ts` and `.env.example`.
+- [X] T004 [P] Configure test, browser, and TypeScript path settings in `vitest.config.ts`, `playwright.config.ts`, and `tsconfig.json`.
+- [X] T005 [P] Define shared recipe, ingredient, history, session, and theme types in `src/models/recipe.ts`, `src/models/auth.ts`, and `src/models/theme.ts`.
 
 ---
 
@@ -31,15 +31,15 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 **Critical**: No user story implementation should begin until this phase is complete.
 
-- [ ] T006 Implement durable recipe and recipe-history storage adapters with atomic successful-mutation-plus-history behavior in `server/storage/recipe-store.ts`.
-- [ ] T007 [P] Implement server-side admin credential verification, session creation/expiration, sign-out invalidation, and authorization middleware in `server/auth/auth-service.ts` and `server/auth/require-admin.ts`.
-- [ ] T008 [P] Implement server request parsing, validation errors, and consistent success/error responses in `server/http/errors.ts` and `server/http/response.ts`.
-- [ ] T009 [P] Implement server route registration and health/configuration bootstrapping in `server/index.ts` and `server/http/router.ts`.
-- [ ] T010 [P] Create the shared Material Theme Builder token layer with light, dark, medium-contrast, and high-contrast mappings in `src/app/theme/tokens.css` and `src/app/theme/theme-provider.tsx`.
-- [ ] T011 [P] Add pre-paint theme preference initialization and resilient browser preference storage in `src/app/theme/theme-bootstrap.ts` and `src/app/theme/theme-storage.ts`.
-- [ ] T012 Create shared application shell, route handling, focus styling, responsive layout primitives, and theme control mounting points in `src/app/AppShell.tsx`, `src/app/routes.tsx`, and `src/components/shared/ThemeToggle.tsx`.
-- [ ] T013 [P] Load required Raleway, Poppins, and Pixelpori font assets and shared pixel-art/seigaiha styling through the token layer in `src/app/theme/typography.css` and `src/index.css`.
-- [ ] T014 [P] Add a seeded development recipe collection and safe admin configuration fixture in `server/storage/seed.ts` and `server/auth/seed-admin.ts`.
+- [X] T006 Implement durable recipe and recipe-history storage adapters with atomic successful-mutation-plus-history behavior in `server/storage/recipe-store.ts`.
+- [X] T007 [P] Implement server-side admin credential verification, session creation/expiration, sign-out invalidation, and authorization middleware in `server/auth/auth-service.ts` and `server/auth/require-admin.ts`.
+- [X] T008 [P] Implement server request parsing, validation errors, and consistent success/error responses in `server/http/errors.ts` and `server/http/response.ts`.
+- [X] T009 [P] Implement server route registration and health/configuration bootstrapping in `server/index.ts` and `server/http/router.ts`.
+- [X] T010 [P] Create the shared Material Theme Builder token layer with light, dark, medium-contrast, and high-contrast mappings in `src/app/theme/tokens.css` and `src/app/theme/theme-provider.tsx`.
+- [X] T011 [P] Add pre-paint theme preference initialization and resilient browser preference storage in `src/app/theme/theme-bootstrap.ts` and `src/app/theme/theme-storage.ts`.
+- [X] T012 Create shared application shell, route handling, focus styling, responsive layout primitives, and theme control mounting points in `src/app/AppShell.tsx`, `src/app/routes.tsx`, and `src/components/shared/ThemeToggle.tsx`.
+- [X] T013 [P] Load required Raleway, Poppins, and Pixelpori font assets and shared pixel-art/seigaiha styling through the token layer in `src/app/theme/typography.css` and `src/index.css`.
+- [X] T014 [P] Add a seeded development recipe collection and safe admin configuration fixture in `server/storage/seed.ts` and `server/auth/seed-admin.ts`.
 
 **Checkpoint**: Foundation ready. Public and protected route shells, shared types, theme tokens, server validation, durable storage, and authorization are available for story implementation.
 
@@ -55,15 +55,15 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 > **Note**: Author and run these tests after the implementation code in this story has been reviewed and approved, as required by Constitution Principle VII.
 
-- [ ] T015 [P] [US1] Add unit coverage for category, cooking-time boundaries, normalized keyword matching, conjunctive filters, and empty results in `tests/unit/recipe-filtering.test.ts`.
-- [ ] T016 [P] [US1] Add browser coverage for public collection rendering, filter combinations, immediate result updates, no-match state, and reset/change-filter recovery in `tests/browser/discovery.spec.ts`.
+- [X] T015 [P] [US1] Add unit coverage for category, cooking-time boundaries, normalized keyword matching, conjunctive filters, and empty results in `tests/unit/recipe-filtering.test.ts`.
+- [X] T016 [P] [US1] Add browser coverage for public collection rendering, filter combinations, immediate result updates, no-match state, and reset/change-filter recovery in `tests/browser/discovery.spec.ts`.
 
 ### Implementation for User Story 1
 
-- [ ] T017 [P] [US1] Implement typed recipe collection loading and public recipe read service in `src/services/recipe-service.ts` and `server/recipes/recipe-read-service.ts`.
+- [X] T017 [P] [US1] Implement typed recipe collection loading and public recipe read service in `src/services/recipe-service.ts` and `server/recipes/recipe-read-service.ts`.
 - [X] T018 [P] [US1] Implement pure normalized text, category, cooking-time-band, and combined filtering functions in `src/lib/recipe-filtering.ts`.
-- [ ] T019 [P] [US1] Create recipe filter controls for category, cooking-time band, and free-text search with accessible labels and reset behavior in `src/features/discovery/RecipeFilters.tsx`.
-- [ ] T020 [US1] Create responsive recipe result cards and actionable empty state in `src/features/discovery/RecipeCard.tsx` and `src/features/discovery/RecipeEmptyState.tsx`.
+- [X] T019 [P] [US1] Create recipe filter controls for category, cooking-time band, and free-text search with accessible labels and reset behavior in `src/features/discovery/RecipeFilters.tsx`.
+- [X] T020 [US1] Create responsive recipe result cards and actionable empty state in `src/features/discovery/RecipeCard.tsx` and `src/features/discovery/RecipeEmptyState.tsx`.
 - [X] T021 [US1] Compose the public collection route with client-side filtering and no per-input network requests in `src/features/discovery/RecipeCollectionPage.tsx` and `src/app/routes.tsx`.
 - [X] T022 [US1] Add recipe navigation from result cards to detail routes while preserving shared shell and theme controls in `src/features/discovery/recipe-links.ts` and `src/app/routes.tsx`.
 
@@ -81,8 +81,8 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 > **Note**: Author and run these tests after the implementation code in this story has been reviewed and approved, as required by Constitution Principle VII.
 
-- [ ] T023 [P] [US2] Add unit coverage for proportional scaling, invalid serving values, unit preservation, and non-scalable ingredient text in `tests/unit/serving-scaling.test.ts`.
-- [ ] T024 [P] [US2] Add browser coverage for detail metadata, serving controls, ingredient toggles, recipe-scoped persistence, and ordered instructions in `tests/browser/recipe-detail.spec.ts`.
+- [X] T023 [P] [US2] Add unit coverage for proportional scaling, invalid serving values, unit preservation, and non-scalable ingredient text in `tests/unit/serving-scaling.test.ts`.
+- [X] T024 [P] [US2] Add browser coverage for detail metadata, serving controls, ingredient toggles, recipe-scoped persistence, and ordered instructions in `tests/browser/recipe-detail.spec.ts`.
 
 ### Implementation for User Story 2
 
@@ -107,13 +107,13 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 > **Note**: Author and run these tests after the implementation code in this story has been reviewed and approved, as required by Constitution Principle VII.
 
-- [ ] T031 [P] [US3] Add browser coverage for theme switching, persistence after reload, pre-paint preference application, public/admin route parity, keyboard focus, and narrow-screen layout in `tests/browser/theme.spec.ts`.
-- [ ] T032 [P] [US3] Add automated token/contrast assertions for light, dark, medium-contrast, and high-contrast states in `tests/unit/theme-tokens.test.ts`.
+- [X] T031 [P] [US3] Add browser coverage for theme switching, persistence after reload, pre-paint preference application, public/admin route parity, keyboard focus, and narrow-screen layout in `tests/browser/theme.spec.ts`.
+- [X] T032 [P] [US3] Add automated token/contrast assertions for light, dark, medium-contrast, and high-contrast states in `tests/unit/theme-tokens.test.ts`.
 
 ### Implementation for User Story 3
 
-- [ ] T033 [US3] Integrate the shared theme provider, bootstrap, and toggle into every public and admin route in `src/app/AppShell.tsx`, `src/app/theme/theme-provider.tsx`, and `src/components/shared/ThemeToggle.tsx`.
-- [ ] T034 [US3] Complete light/dark/contrast token coverage for controls, text, surfaces, borders, focus indicators, errors, and empty states in `src/app/theme/tokens.css` and `src/index.css`.
+- [X] T033 [US3] Integrate the shared theme provider, bootstrap, and toggle into every public and admin route in `src/app/AppShell.tsx`, `src/app/theme/theme-provider.tsx`, and `src/components/shared/ThemeToggle.tsx`.
+- [X] T034 [US3] Complete light/dark/contrast token coverage for controls, text, surfaces, borders, focus indicators, errors, and empty states in `src/app/theme/tokens.css` and `src/index.css`.
 - [ ] T035 [US3] Audit responsive theme layouts and remove component-level color bypasses or typography substitutions in `src/components/`, `src/features/`, and `src/app/`.
 
 **Checkpoint**: All existing public flows and the admin shell remain usable in both themes with persistent pre-paint preference application.
@@ -130,19 +130,19 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 > **Note**: Author and run these tests after the implementation code in this story has been reviewed and approved, as required by Constitution Principle VII.
 
-- [ ] T036 [P] [US4] Add integration coverage for sign-in, sign-out, expired sessions, protected reads, rejected unauthenticated mutations, and server-side admin authorization in `tests/integration/auth-authorization.test.ts`.
-- [ ] T037 [P] [US4] Add integration coverage for valid create/edit persistence, field validation, atomic audit history, failed mutation behavior, and timestamp/actor fields in `tests/integration/recipe-management.test.ts`.
-- [ ] T038 [P] [US4] Add browser coverage for signed-out redirects, admin create/edit forms, history display, validation feedback, sign-out, and public catalog reflection in `tests/browser/backstage.spec.ts`.
+- [X] T036 [P] [US4] Add integration coverage for sign-in, sign-out, expired sessions, protected reads, rejected unauthenticated mutations, and server-side admin authorization in `tests/integration/auth-authorization.test.ts`.
+- [X] T037 [P] [US4] Add integration coverage for valid create/edit persistence, field validation, atomic audit history, failed mutation behavior, and timestamp/actor fields in `tests/integration/recipe-management.test.ts`.
+- [X] T038 [P] [US4] Add browser coverage for signed-out redirects, admin create/edit forms, history display, validation feedback, sign-out, and public catalog reflection in `tests/browser/backstage.spec.ts`.
 
 ### Implementation for User Story 4
 
-- [ ] T039 [P] [US4] Implement protected recipe read, create, edit, and history handlers with request validation and authenticated admin checks in `server/recipes/recipe-routes.ts` and `server/audit/history-service.ts`.
-- [ ] T040 [P] [US4] Implement sign-in, sign-out, session status, and protected-route redirect services in `src/services/auth-service.ts` and `src/features/backstage/require-admin.ts`.
+- [X] T039 [P] [US4] Implement protected recipe read, create, edit, and history handlers with request validation and authenticated admin checks in `server/recipes/recipe-routes.ts` and `server/audit/history-service.ts`.
+- [X] T040 [P] [US4] Implement sign-in, sign-out, session status, and protected-route redirect services in `src/services/auth-service.ts` and `src/features/backstage/require-admin.ts`.
 - [ ] T041 [P] [US4] Create validated recipe editor fields for name, category, cooking time, servings, ingredients, and ordered instructions in `src/features/backstage/RecipeEditorForm.tsx`.
 - [ ] T042 [P] [US4] Create Backstage sign-in page and sign-out control with actionable authentication errors in `src/features/backstage/SignInPage.tsx` and `src/features/backstage/SignOutButton.tsx`.
 - [ ] T043 [P] [US4] Create authenticated history view with recipe, action, actor, and localized timestamp in `src/features/backstage/RecipeHistory.tsx`.
 - [ ] T044 [US4] Compose Backstage dashboard, create/edit routes, protected navigation, and success/error feedback in `src/features/backstage/BackstagePage.tsx` and `src/app/routes.tsx`.
-- [ ] T045 [US4] Verify successful create/edit operations refresh the public collection and record history only after durable storage succeeds in `src/services/recipe-service.ts` and `server/storage/recipe-store.ts`.
+- [X] T045 [US4] Verify successful create/edit operations refresh the public collection and record history only after durable storage succeeds in `src/services/recipe-service.ts` and `server/storage/recipe-store.ts`.
 
 **Checkpoint**: All four user stories are independently demonstrable, with Backstage mutations protected by server-side authorization and auditable on success.
 
@@ -152,11 +152,11 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 **Purpose**: Complete security, accessibility, performance, documentation, and end-to-end validation across the feature.
 
-- [ ] T046 [P] Add security hardening for session cookies, credential error handling, request forgery protection, and mutation input limits in `server/auth/`, `server/http/`, and `server/recipes/`.
+- [X] T046 [P] Add security hardening for session cookies, credential error handling, request forgery protection, and mutation input limits in `server/auth/`, `server/http/`, and `server/recipes/`.
 - [ ] T047 [P] Add accessible loading, failure, empty, focus, and narrow-screen states across `src/components/`, `src/features/`, and `src/app/`.
 - [ ] T048 [P] Profile public filtering against the representative collection and remove avoidable per-keystroke work in `src/lib/recipe-filtering.ts` and `src/features/discovery/`.
-- [ ] T049 [P] Document local setup, admin fixture configuration, available scripts, and server prerequisites in `README.md`.
-- [ ] T050 Run the full validation guide from [quickstart.md](./quickstart.md), including `npm run lint`, `npm run build`, `npm test`, and browser acceptance checks.
+- [X] T049 [P] Document local setup, admin fixture configuration, available scripts, and server prerequisites in `README.md`.
+- [X] T050 Run the full validation guide from [quickstart.md](./quickstart.md), including `npm run lint`, `npm run build`, `npm test`, and browser acceptance checks.
 - [ ] T051 Confirm every feature requirement FR-001 through FR-019 and success criterion SC-001 through SC-007 against the implemented flows in `specs/001-recipe-experience/quickstart.md` and the completed test reports.
 
 ---
