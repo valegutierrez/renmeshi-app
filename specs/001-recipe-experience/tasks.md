@@ -114,7 +114,7 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 - [X] T033 [US3] Integrate the shared theme provider, bootstrap, and toggle into every public and admin route in `src/app/AppShell.tsx`, `src/app/theme/theme-provider.tsx`, and `src/components/shared/ThemeToggle.tsx`.
 - [X] T034 [US3] Complete light/dark/contrast token coverage for controls, text, surfaces, borders, focus indicators, errors, and empty states in `src/app/theme/tokens.css` and `src/index.css`.
-- [ ] T035 [US3] Audit responsive theme layouts and remove component-level color bypasses or typography substitutions in `src/components/`, `src/features/`, and `src/app/`.
+- [X] T035 [US3] Audit responsive theme layouts and remove component-level color bypasses or typography substitutions in `src/components/`, `src/features/`, and `src/app/`.
 
 **Checkpoint**: All existing public flows and the admin shell remain usable in both themes with persistent pre-paint preference application.
 
@@ -138,10 +138,10 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 - [X] T039 [P] [US4] Implement protected recipe read, create, edit, and history handlers with request validation and authenticated admin checks in `server/recipes/recipe-routes.ts` and `server/audit/history-service.ts`.
 - [X] T040 [P] [US4] Implement sign-in, sign-out, session status, and protected-route redirect services in `src/services/auth-service.ts` and `src/features/backstage/require-admin.ts`.
-- [ ] T041 [P] [US4] Create validated recipe editor fields for name, category, cooking time, servings, ingredients, and ordered instructions in `src/features/backstage/RecipeEditorForm.tsx`.
-- [ ] T042 [P] [US4] Create Backstage sign-in page and sign-out control with actionable authentication errors in `src/features/backstage/SignInPage.tsx` and `src/features/backstage/SignOutButton.tsx`.
-- [ ] T043 [P] [US4] Create authenticated history view with recipe, action, actor, and localized timestamp in `src/features/backstage/RecipeHistory.tsx`.
-- [ ] T044 [US4] Compose Backstage dashboard, create/edit routes, protected navigation, and success/error feedback in `src/features/backstage/BackstagePage.tsx` and `src/app/routes.tsx`.
+- [X] T041 [P] [US4] Create validated recipe editor fields for name, category, cooking time, servings, ingredients, and ordered instructions in `src/features/backstage/RecipeEditorForm.tsx`.
+- [X] T042 [P] [US4] Create Backstage sign-in page and sign-out control with actionable authentication errors in `src/features/backstage/SignInPage.tsx` and `src/features/backstage/SignOutButton.tsx`.
+- [X] T043 [P] [US4] Create authenticated history view with recipe, action, actor, and localized timestamp in `src/features/backstage/RecipeHistory.tsx`.
+- [X] T044 [US4] Compose Backstage dashboard, create/edit routes, protected navigation, and success/error feedback in `src/features/backstage/BackstagePage.tsx` and `src/app/routes.tsx`.
 - [X] T045 [US4] Verify successful create/edit operations refresh the public collection and record history only after durable storage succeeds in `src/services/recipe-service.ts` and `server/storage/recipe-store.ts`.
 
 **Checkpoint**: All four user stories are independently demonstrable, with Backstage mutations protected by server-side authorization and auditable on success.
@@ -153,11 +153,11 @@ description: "Executable task list for the core Renmeshi recipe experience"
 **Purpose**: Complete security, accessibility, performance, documentation, and end-to-end validation across the feature.
 
 - [X] T046 [P] Add security hardening for session cookies, credential error handling, request forgery protection, and mutation input limits in `server/auth/`, `server/http/`, and `server/recipes/`.
-- [ ] T047 [P] Add accessible loading, failure, empty, focus, and narrow-screen states across `src/components/`, `src/features/`, and `src/app/`.
-- [ ] T048 [P] Profile public filtering against the representative collection and remove avoidable per-keystroke work in `src/lib/recipe-filtering.ts` and `src/features/discovery/`.
+- [X] T047 [P] Add accessible loading, failure, empty, focus, and narrow-screen states across `src/components/`, `src/features/`, and `src/app/`.
+- [X] T048 [P] Profile public filtering against the representative collection and remove avoidable per-keystroke work in `src/lib/recipe-filtering.ts` and `src/features/discovery/`.
 - [X] T049 [P] Document local setup, admin fixture configuration, available scripts, and server prerequisites in `README.md`.
 - [X] T050 Run the full validation guide from [quickstart.md](./quickstart.md), including `npm run lint`, `npm run build`, `npm test`, and browser acceptance checks.
-- [ ] T051 Confirm every feature requirement FR-001 through FR-019 and success criterion SC-001 through SC-007 against the implemented flows in `specs/001-recipe-experience/quickstart.md` and the completed test reports.
+- [X] T051 Confirm every feature requirement FR-001 through FR-019 and success criterion SC-001 through SC-007 against the implemented flows in `specs/001-recipe-experience/quickstart.md` and the completed test reports.
 
 ---
 

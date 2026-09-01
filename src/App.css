@@ -197,7 +197,7 @@ a { color: inherit; }
 .topbar { max-width: 1180px; margin: auto; padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--line); }
 .brand { text-decoration: none; display: flex; align-items: center; gap: 12px; font-family: var(--rm-heading-font); font-weight: 800; letter-spacing: .03em; }
 .brand-mark { background: var(--teal); color: var(--paper); padding: 9px 8px 7px; box-shadow: 3px 3px 0 var(--ink); font-family: 'Roboto Mono', monospace; font-size: 13px; }
-.brand small { display: block; color: var(--muted); font: 700 10px 'Roboto Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
+.brand small { display: block; color: var(--muted); font: 700 10px var(--rm-label-font); letter-spacing: .1em; text-transform: uppercase; }
 .wordmark { width: 145px; height: auto; display: block; }
 .footer { max-width: 1180px; margin: auto; padding: 24px 28px; border-top: 2px solid var(--line); }
 .footer img { width: 32px; image-rendering: pixelated; }
@@ -205,7 +205,7 @@ a { color: inherit; }
 .icon-button, .nav-button { border: 2px solid var(--line); background: var(--panel); color: var(--ink); padding: 9px 12px; box-shadow: 2px 2px 0 var(--line); text-decoration: none; font-size: 13px; font-weight: 700; }
 .icon-button:hover, .nav-button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--line); }
 .main { max-width: 1180px; margin: auto; padding: 48px 28px 70px; }
-.eyebrow { color: var(--coral); font: 700 12px 'Roboto Mono', monospace; letter-spacing: .12em; text-transform: uppercase; }
+.eyebrow { color: var(--coral); font: 700 12px var(--rm-label-font); letter-spacing: .12em; text-transform: uppercase; }
 h1, h2, h3 { font-family: Raleway, sans-serif; margin: 0; line-height: 1.05; }
 h1 { max-width: 720px; font-size: clamp(44px, 7vw, 82px); letter-spacing: -.045em; }
 h2 { font-size: 34px; letter-spacing: -.025em; }
@@ -215,21 +215,21 @@ h3 { font-size: 21px; }
 .wave-strip { height: 20px; margin: 24px 0 34px; opacity: .55; background: radial-gradient(18px 12px at 18px 12px, transparent 68%, var(--teal) 70% 76%, transparent 78%) 0 0 / 36px 24px repeat-x; }
 .filters { display: grid; grid-template-columns: 1.5fr 1fr 1fr auto; gap: 12px; padding: 16px; background: var(--panel); border: 2px solid var(--line); box-shadow: var(--shadow); margin-bottom: 34px; }
 .field { display: grid; gap: 6px; }
-.field label { color: var(--muted); font: 700 10px 'Roboto Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+.field label { color: var(--muted); font: 700 10px var(--rm-label-font); letter-spacing: .08em; text-transform: uppercase; }
 .field input, .field select, .editor input, .editor select, .editor textarea { width: 100%; border: 2px solid var(--line); background: var(--paper); color: var(--ink); padding: 11px 12px; }
 .clear-button { align-self: end; border: 0; color: var(--coral); background: transparent; font-weight: 800; padding: 12px 4px; }
 .result-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
-.result-count { color: var(--muted); font: 700 12px 'Roboto Mono', monospace; }
+.result-count { color: var(--muted); font: 700 12px var(--rm-label-font); }
 .recipe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .recipe-card { background: var(--panel); border: 2px solid var(--line); min-height: 235px; display: flex; flex-direction: column; text-decoration: none; box-shadow: 3px 3px 0 var(--line); transition: transform .2s, box-shadow .2s; }
 .recipe-card:hover { transform: translateY(-4px); box-shadow: 6px 7px 0 var(--line); }
-.card-art { min-height: 88px; padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; color: #fff; font: 700 12px 'Roboto Mono', monospace; position: relative; overflow: hidden; }
+.card-art { min-height: 88px; padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; color: #fff; font: 700 12px var(--rm-label-font); position: relative; overflow: hidden; }
 .card-art img { position: absolute; right: 34px; bottom: 0; width: 82px; height: 82px; object-fit: contain; image-rendering: pixelated; }
 .card-art.coral { background: var(--coral); }.card-art.teal { background: var(--teal); color: var(--ink); }.card-art.lime { background: var(--lime); color: var(--ink); }.card-art.violet { background: var(--violet); }.card-art.gold { background: var(--gold); color: var(--ink); }
 .card-emoji { font-size: 38px; filter: saturate(.7); }
 .card-body { padding: 17px; display: grid; gap: 12px; flex: 1; }
 .card-body p { color: var(--muted); font-size: 13px; margin: 0; }
-.meta-row { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font: 700 11px 'Roboto Mono', monospace; text-transform: uppercase; }
+.meta-row { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font: 700 11px var(--rm-label-font); text-transform: uppercase; }
 .empty { padding: 48px; border: 2px dashed var(--line); text-align: center; color: var(--muted); }
 .detail-header { display: flex; gap: 24px; justify-content: space-between; align-items: end; margin-bottom: 28px; }
 .back-link { color: var(--teal-dark); font-weight: 800; text-decoration: none; }
@@ -255,5 +255,6 @@ h3 { font-size: 21px; }
 .history-row { display: flex; justify-content: space-between; gap: 12px; padding: 13px; border-left: 4px solid var(--coral); background: color-mix(in srgb, var(--paper) 70%, var(--panel)); font-size: 13px; }
 .history-row small { color: var(--muted); }
 .notice { padding: 12px; background: color-mix(in srgb, var(--gold) 25%, var(--panel)); border: 2px solid var(--gold); font-size: 13px; }
+.status-message { color: var(--muted); padding: 12px 0; }
 @media (max-width: 800px) { .hero-copy, .detail-layout, .admin-grid { grid-template-columns: 1fr; gap: 25px; } .filters { grid-template-columns: 1fr 1fr; } .recipe-grid { grid-template-columns: repeat(2, 1fr); } .detail-header { align-items: start; flex-direction: column; } }
 @media (max-width: 520px) { .topbar, .main { padding-left: 18px; padding-right: 18px; } .topbar { align-items: flex-start; gap: 15px; } .top-actions { flex-wrap: wrap; justify-content: flex-end; } .filters, .recipe-grid { grid-template-columns: 1fr; } h1 { font-size: 52px; } }
