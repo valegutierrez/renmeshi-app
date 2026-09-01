@@ -61,11 +61,11 @@ description: "Executable task list for the core Renmeshi recipe experience"
 ### Implementation for User Story 1
 
 - [ ] T017 [P] [US1] Implement typed recipe collection loading and public recipe read service in `src/services/recipe-service.ts` and `server/recipes/recipe-read-service.ts`.
-- [ ] T018 [P] [US1] Implement pure normalized text, category, cooking-time-band, and combined filtering functions in `src/lib/recipe-filtering.ts`.
+- [X] T018 [P] [US1] Implement pure normalized text, category, cooking-time-band, and combined filtering functions in `src/lib/recipe-filtering.ts`.
 - [ ] T019 [P] [US1] Create recipe filter controls for category, cooking-time band, and free-text search with accessible labels and reset behavior in `src/features/discovery/RecipeFilters.tsx`.
 - [ ] T020 [US1] Create responsive recipe result cards and actionable empty state in `src/features/discovery/RecipeCard.tsx` and `src/features/discovery/RecipeEmptyState.tsx`.
-- [ ] T021 [US1] Compose the public collection route with client-side filtering and no per-input network requests in `src/features/discovery/RecipeCollectionPage.tsx` and `src/app/routes.tsx`.
-- [ ] T022 [US1] Add recipe navigation from result cards to detail routes while preserving shared shell and theme controls in `src/features/discovery/recipe-links.ts` and `src/app/routes.tsx`.
+- [X] T021 [US1] Compose the public collection route with client-side filtering and no per-input network requests in `src/features/discovery/RecipeCollectionPage.tsx` and `src/app/routes.tsx`.
+- [X] T022 [US1] Add recipe navigation from result cards to detail routes while preserving shared shell and theme controls in `src/features/discovery/recipe-links.ts` and `src/app/routes.tsx`.
 
 **Checkpoint**: User Story 1 is independently usable as the MVP public discovery experience.
 
@@ -86,12 +86,12 @@ description: "Executable task list for the core Renmeshi recipe experience"
 
 ### Implementation for User Story 2
 
-- [ ] T025 [P] [US2] Implement structured ingredient quantity scaling and valid-serving normalization in `src/lib/serving-scaling.ts`.
-- [ ] T026 [P] [US2] Implement recipe-scoped checklist state persistence and toggle behavior in `src/features/recipe-detail/useIngredientChecklist.ts` and `src/services/recipe-preferences.ts`.
-- [ ] T027 [P] [US2] Create serving-size controls with invalid-input recovery and current-serving feedback in `src/features/recipe-detail/ServingScaler.tsx`.
-- [ ] T028 [P] [US2] Create accessible ingredient checklist rendering scaled quantities and preserved descriptive text in `src/features/recipe-detail/IngredientChecklist.tsx`.
-- [ ] T029 [P] [US2] Create high-visibility ordered instruction list and recipe metadata panel in `src/features/recipe-detail/InstructionList.tsx` and `src/features/recipe-detail/RecipeMeta.tsx`.
-- [ ] T030 [US2] Compose the recipe detail route and integrate navigation from the public collection in `src/features/recipe-detail/RecipeDetailPage.tsx` and `src/app/routes.tsx`.
+- [X] T025 [P] [US2] Implement structured ingredient quantity scaling and valid-serving normalization in `src/lib/serving-scaling.ts`.
+- [X] T026 [P] [US2] Implement recipe-scoped checklist state persistence and toggle behavior in `src/features/recipe-detail/useIngredientChecklist.ts` and `src/services/recipe-preferences.ts`.
+- [X] T027 [P] [US2] Create serving-size controls with invalid-input recovery and current-serving feedback in `src/features/recipe-detail/ServingScaler.tsx`.
+- [X] T028 [P] [US2] Create accessible ingredient checklist rendering scaled quantities and preserved descriptive text in `src/features/recipe-detail/IngredientChecklist.tsx`.
+- [X] T029 [P] [US2] Create high-visibility ordered instruction list and recipe metadata panel in `src/features/recipe-detail/InstructionList.tsx` and `src/features/recipe-detail/RecipeMeta.tsx`.
+- [X] T030 [US2] Compose the recipe detail route and integrate navigation from the public collection in `src/features/recipe-detail/RecipeDetailPage.tsx` and `src/app/routes.tsx`.
 
 **Checkpoint**: User Stories 1 and 2 are independently demonstrable as discovery plus cooking workflow.
 
