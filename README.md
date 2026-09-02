@@ -57,6 +57,13 @@ npm test
 npm run test:browser
 ```
 
+Palette changes must use the Material Theme roles defined in
+[the color contract](specs/004-material-theme-color-audit/contracts/ui-color-contract.md).
+The source audit is covered by `npm test -- tests/unit/color-policy.test.ts`, while
+four-mode readability and overflow are covered by
+`npm run test:browser -- tests/browser/color-audit.spec.ts`. The constitution remains
+the governing policy for any proposed color exception.
+
 `test:browser` starts the configured Vite and API servers automatically when they are not
 already running, loading credentials from the local `.env`. Install Playwright Chromium
 once with `npx playwright install chromium`.

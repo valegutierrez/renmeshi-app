@@ -1,12 +1,10 @@
 <!--
 Sync Impact Report
-Version change: 1.1.1 → 1.1.2
+Version change: 1.1.2 → 1.2.0
 Modified principles:
-  - I. Retro-Pixel Identity and Reference Assets: require one canonical seigaiha asset
-  - II. Material Theme with Mockup-Inspired Expression: bind the pattern to Outline Variant and the logo to approved theme variants
-Added sections:
-  - Canonical Seigaiha Pattern and Logo Color Variants under Technology Stack & Design System
-Removed sections: none (template placeholders replaced)
+  - II. Material Theme with Mockup-Inspired Expression: restrict every application color to the Material Theme export
+Added sections: none
+Removed sections: none
 Project owners: Daniel (senior SWE), Valentina (front-end/UX/pixel artist)
 Follow-up TODOs:
   - None
@@ -36,20 +34,25 @@ that reproduces generic corporate/SaaS visual patterns instead of the game-cozy 
 MUST be rejected in review.
 
 ### II. Material Theme with Mockup-Inspired Expression
-All colors MUST come from the provided Material Theme Builder export (seed #00736B,
-primary/secondary/tertiary + Accent #850097, full tonal palettes). Light and dark
-schemes — including medium- and high-contrast variants — MUST both be implemented and
-kept in sync; no scheme may lag behind another in coverage. Hard-coded hex values in
-components are forbidden. Theme tokens MUST be consumed through a single design-tokens/
+Every application color MUST be a role or tone present in the provided Material Theme
+Builder export (seed #00736B, primary/secondary/tertiary plus Accent #850097 and their
+full tonal palettes). Light and dark schemes — including medium- and high-contrast
+variants — MUST both be implemented and kept in sync; no scheme may lag behind another
+in coverage. Hard-coded hex, RGB, HSL, named CSS colors, opacity-derived colors, and
+custom color variants are forbidden in application UI. Names such as `coral`, `violet`,
+`gold`, and `lime`, along with any other ad hoc accent or palette variant, MUST NOT be
+introduced as colors. Theme tokens MUST be consumed through a single design-tokens/
 theme layer (e.g., CSS variables or a theme provider) that every mode (light, dark,
-contrast variants) reads from — no component may bypass this layer. The attached design
-mockups MUST be treated as visual inspiration for layout, hierarchy, spacing, asset
-placement, responsive behavior, and overall tone; they MUST NOT override Material theme
-tokens, WCAG requirements, or the approved asset rules in this constitution. Implementations
-MUST preserve the mockups' intentional cozy editorial character while adapting details
-where necessary for accessibility, responsive usability, or theme parity. The canonical
-seigaiha asset MUST be rendered without introducing a second pattern color; its only
-applied color is the active `Outline Variant` token.
+contrast variants) reads from — no component may bypass this layer. Semantic tokens MUST
+resolve only to values defined by the Material Theme export; visual resemblance to a
+mockup MUST NOT justify a new color. The attached design mockups MUST be treated as
+visual inspiration for layout, hierarchy, spacing, asset placement, responsive behavior,
+and overall tone; they MUST NOT override Material theme tokens, WCAG requirements, or
+the approved asset rules in this constitution. Implementations MUST preserve the
+mockups' intentional cozy editorial character while adapting details where necessary
+for accessibility, responsive usability, or theme parity. The canonical seigaiha asset
+MUST be rendered without introducing a second pattern color; its only applied color is
+the active `Outline Variant` token.
 
 ### III. Accessibility & Theming Are Non-Negotiable
 Every screen MUST be fully usable in both light and dark themes with no missed tokens.
@@ -104,7 +107,9 @@ workflow or introducing user accounts, social features, or unrelated marketing f
   documented design exception.
 - **Theme tokens**: Sourced from the attached Material Theme Builder JSON export,
   covering light, dark, and their medium/high-contrast variants. Tokens are the only
-  permitted source of color values in application code.
+  permitted source of color values in application code. No custom color names, hard-coded
+  values, opacity-derived colors, or variants such as coral, violet, gold, or lime are
+  permitted.
 - **Typography**: Raleway (headings), Poppins (body text), and the supplied Pixelpori font
   at `src/assets/fonts/pixelpori.ttf` for tags/subheadings — see Principle I for enforcement.
 - **Approved visual assets**: `src/assets/pixelart/appetizer.png`,
@@ -155,4 +160,4 @@ constitution; complexity must be justified against Principle V.
 
 **Project Owners**: Daniel (senior SWE), Valentina (front-end/UX/pixel artist)
 
-**Version**: 1.1.2 | **Ratified**: 2026-08-27 | **Last Amended**: 2026-09-02
+**Version**: 1.2.0 | **Ratified**: 2026-08-27 | **Last Amended**: 2026-09-02

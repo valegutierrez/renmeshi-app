@@ -104,7 +104,6 @@ function App() {
                 <div className="latest-grid">{recipeCollection.slice(0, 3).map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}<a className="view-all-action" href="#/">View all recipes <span aria-hidden="true">→</span></a></div>
               </section>
             </section>
-            <div className="wave-strip" aria-hidden="true" />
             <section className="discovery-section">
             <RecipeFilters
               category={category}
@@ -383,7 +382,6 @@ export function LegacyBackstage({
                 keywords: form.name.toLowerCase().split(/\s+/).filter(Boolean),
                 ingredients,
                 instructions: instructionLines,
-                accent: "teal",
               };
               try {
                 const saved = await saveRecipeToServer(

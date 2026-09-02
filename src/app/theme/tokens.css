@@ -23,7 +23,12 @@
 }
 
 :root[data-contrast='medium'] {
+  --rm-surface: #fffaf2;
+  --rm-surface-raised: #fff;
+  --rm-ink: #173b35;
+  --rm-muted: #5c6b67;
   --rm-line: #55766b;
+  --rm-focus: #8f2f1b;
   --rm-primary: #00574f;
   --rm-on-primary: #fff;
   --rm-outline-variant: #55766b;

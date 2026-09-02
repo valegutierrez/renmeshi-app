@@ -28,7 +28,7 @@ export function BackstagePage({ recipes, onSaved }: { recipes: Recipe[]; onSaved
     const ingredientLines = form.ingredients.split('\n').map((line) => line.trim()).filter(Boolean); const instructionLines = form.instructions.split('\n').map((line) => line.trim()).filter(Boolean)
     if (!form.name.trim() || !Number.isInteger(cookingTime) || cookingTime < 1 || !Number.isFinite(servings) || servings <= 0 || !ingredientLines.length || !instructionLines.length) { setError('Enter a name, whole-minute cooking time, positive servings, at least one ingredient, and one instruction.'); return }
     const id = editingId ?? (form.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || `recipe-${Date.now()}`)
-    const recipe: Recipe = { id, name: form.name.trim(), category: form.category, cookingTimeMinutes: cookingTime, baseServings: servings, keywords: form.name.toLowerCase().split(/\s+/).filter(Boolean), ingredients: ingredientLines.map((displayText, index) => ({ id: `${id}-ingredient-${index + 1}`, name: displayText, displayText, scalable: false })), instructions: instructionLines, accent: 'teal' }
+    const recipe: Recipe = { id, name: form.name.trim(), category: form.category, cookingTimeMinutes: cookingTime, baseServings: servings, keywords: form.name.toLowerCase().split(/\s+/).filter(Boolean), ingredients: ingredientLines.map((displayText, index) => ({ id: `${id}-ingredient-${index + 1}`, name: displayText, displayText, scalable: false })), instructions: instructionLines }
     try { onSaved(await saveRecipeToServer(recipe, Boolean(editingId))); setHistory(await fetchHistory()); resetForm() } catch (reason) { setError(reason instanceof Error ? reason.message : 'Unable to save recipe') }
   }
 
