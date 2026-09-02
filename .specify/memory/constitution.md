@@ -1,8 +1,14 @@
 <!--
 Sync Impact Report
-Version change: TEMPLATE → 1.0.0 (initial ratification)
-Modified principles: n/a (initial adoption)
+Version change: 1.0.0 → 1.1.0
+Modified principles:
+  - I. Retro-Pixel Identity, Never Generic → I. Retro-Pixel Identity and Reference Assets
+  - II. Material Theme as Single Source of Truth → II. Material Theme with Mockup-Inspired Expression
+Added principles:
+  - VIII. About Us and Product Story
 Added sections:
+  - Core Principle VIII (About Us and Product Story)
+  - Approved Visual Assets and Mockup Interpretation under Technology Stack & Design System
   - Core Principles I–VII (Retro-Pixel Identity, Material Theme as Single Source of Truth,
     Accessibility & Theming Are Non-Negotiable, Fast Client-Side First Recipe Discovery,
     Simplicity & Practicality Over Cleverness, Secure Auditable Admin Dashboard,
@@ -12,30 +18,40 @@ Added sections:
   - Governance
 Removed sections: none (template placeholders replaced)
 Project owners: Daniel (senior SWE), Valentina (front-end/UX/pixel artist)
-Follow-up TODOs: none
+Follow-up TODOs:
+  - Implement the About Us page and integrate the approved image, pixel-art, logo, and font assets in a future implementation task.
 -->
 
 # Renmeshi (錬メシ) Constitution
 
 ## Core Principles
 
-### I. Retro-Pixel Identity, Never Generic
+### I. Retro-Pixel Identity and Reference Assets
 Every UI surface MUST honor the 16-bit/pixel-art aesthetic (SNES, Kirby, FFXIV, and
 Ragnarok Online influences). Headings MUST use Raleway, body text MUST use Poppins,
-and tags/subheadings MUST use the custom "Pixelpori" pixel font — no font substitutions
+and tags/subheadings MUST use the supplied `pixelpori.ttf` font — no font substitutions
 without an explicit, documented design exception. Decorative seigaiha wave patterns
-MUST be used as section backgrounds wherever called for in designs. Any component that
-reproduces generic corporate/SaaS visual patterns instead of the game-cozy identity
+MUST be used as section backgrounds wherever called for in the approved design direction.
+The supplied `appetizer.png`, `main-dish.png`, `side-dish.png`, and `dessert.png` assets
+MUST be used for the corresponding homepage category illustrations unless an approved
+design revision replaces them. The supplied `renmeshi.svg` MUST be used for the square
+footer logo and `renmeshi letters.svg` MUST be used for the header wordmark. Any component
+that reproduces generic corporate/SaaS visual patterns instead of the game-cozy identity
 MUST be rejected in review.
 
-### II. Material Theme as Single Source of Truth
+### II. Material Theme with Mockup-Inspired Expression
 All colors MUST come from the provided Material Theme Builder export (seed #00736B,
 primary/secondary/tertiary + Accent #850097, full tonal palettes). Light and dark
 schemes — including medium- and high-contrast variants — MUST both be implemented and
 kept in sync; no scheme may lag behind another in coverage. Hard-coded hex values in
 components are forbidden. Theme tokens MUST be consumed through a single design-tokens/
 theme layer (e.g., CSS variables or a theme provider) that every mode (light, dark,
-contrast variants) reads from — no component may bypass this layer.
+contrast variants) reads from — no component may bypass this layer. The attached design
+mockups MUST be treated as visual inspiration for layout, hierarchy, spacing, asset
+placement, responsive behavior, and overall tone; they MUST NOT override Material theme
+tokens, WCAG requirements, or the approved asset rules in this constitution. Implementations
+MUST preserve the mockups' intentional cozy editorial character while adapting details
+where necessary for accessibility, responsive usability, or theme parity.
 
 ### III. Accessibility & Theming Are Non-Negotiable
 Every screen MUST be fully usable in both light and dark themes with no missed tokens.
@@ -73,6 +89,14 @@ Recipe search/filter logic, ingredient-scaling math, and auth-gated admin action
 require automated tests before being considered done. Visual/pixel-art styling does
 NOT require pixel-diff tests unless explicitly requested for a specific feature.
 
+### VIII. About Us and Product Story
+The public site MUST include an About Us page that explains the Renmeshi story, its creators'
+shared interest in cooking and coding, and the purpose of the recipe experience. The page
+MUST be reachable through the public site navigation, use the shared theme and typography
+system, and remain fully usable on mobile and desktop. Its content MUST support the product's
+human, personal, and gamer-cozy character without displacing the primary recipe-discovery
+workflow or introducing user accounts, social features, or unrelated marketing flows.
+
 ## Technology Stack & Design System
 
 - **Framework**: React, developed using the Copilot spec-driven development workflow
@@ -83,8 +107,16 @@ NOT require pixel-diff tests unless explicitly requested for a specific feature.
 - **Theme tokens**: Sourced from the attached Material Theme Builder JSON export,
   covering light, dark, and their medium/high-contrast variants. Tokens are the only
   permitted source of color values in application code.
-- **Typography**: Raleway (headings), Poppins (body text), Pixelpori (tags/subheadings) —
-  see Principle I for enforcement.
+- **Typography**: Raleway (headings), Poppins (body text), and the supplied Pixelpori font
+  at `src/assets/fonts/pixelpori.ttf` for tags/subheadings — see Principle I for enforcement.
+- **Approved visual assets**: `src/assets/pixelart/appetizer.png`,
+  `src/assets/pixelart/main-dish.png`, `src/assets/pixelart/side-dish.png`,
+  `src/assets/pixelart/dessert.png`, `src/assets/renmeshi.svg`, and
+  `src/assets/renmeshi letters.svg`. Their homepage, header, and footer roles are governed
+  by Principle I.
+- **Design references**: `.specify/design-mockups/` contains inspiration for the public
+  site's composition and visual tone. Mockups are references, not a second source of truth
+  for colors or accessibility behavior.
 - Any deviation from this stack (e.g., a new font, a hard-coded color, a non-client-side
   search path) MUST be called out explicitly in the relevant spec or plan with a stated
   reason before implementation proceeds.
@@ -118,4 +150,4 @@ constitution; complexity must be justified against Principle V.
 
 **Project Owners**: Daniel (senior SWE), Valentina (front-end/UX/pixel artist)
 
-**Version**: 1.0.0 | **Ratified**: 2026-08-27 | **Last Amended**: 2026-08-27
+**Version**: 1.1.0 | **Ratified**: 2026-08-27 | **Last Amended**: 2026-09-01

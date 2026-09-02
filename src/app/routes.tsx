@@ -5,3 +5,7 @@ export function initialRoute(): string {
 export function recipeIdFromRoute(route: string): string {
   return route.startsWith('#/recipe/') ? route.replace('#/recipe/', '') : ''
 }
+
+export function categoryFromRoute(route: string): string {
+  return route.startsWith('#/category/') ? route.replace('#/category/', '') : ''
+}

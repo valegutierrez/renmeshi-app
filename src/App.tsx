@@ -17,16 +17,22 @@ import {
   type RecipeHistoryEntry,
 } from "./services/api";
 import { AppShell } from "./app/AppShell";
-import { initialRoute, recipeIdFromRoute } from "./app/routes";
+import { categoryFromRoute, initialRoute, recipeIdFromRoute } from "./app/routes";
 import { RecipeCard } from "./features/discovery/RecipeCard";
 import { RecipeEmptyState } from "./features/discovery/RecipeEmptyState";
 import { RecipeFilters } from "./features/discovery/RecipeFilters";
 import { RecipeDetailPage } from "./features/recipe-detail/RecipeDetailPage";
 import { BackstagePage } from "./features/backstage/BackstagePage";
+import { aboutUsContent, recipeCategoryLinks } from "./models/about-us";
 
 function App() {
   const [route, setRoute] = useState(initialRoute);
-  const [category, setCategory] = useState<RecipeCategory | "All">("All");
+  const [category, setCategory] = useState<RecipeCategory | "All">(() => {
+    const routeCategory = categoryFromRoute(initialRoute());
+    return categories.includes(routeCategory as RecipeCategory)
+      ? (routeCategory as RecipeCategory)
+      : "All";
+  });
   const [timeBand, setTimeBand] = useState<TimeBand | "all">("all");
   const [search, setSearch] = useState("");
   const [recipeCollection, setRecipeCollection] = useState(recipes);
@@ -34,7 +40,12 @@ function App() {
   const [recipeLoadError, setRecipeLoadError] = useState("");
 
   useEffect(() => {
-    const onHashChange = () => setRoute(window.location.hash || "#/");
+    const onHashChange = () => {
+      const nextRoute = window.location.hash || "#/";
+      const nextCategory = categoryFromRoute(nextRoute) as RecipeCategory;
+      setRoute(nextRoute);
+      if (categories.includes(nextCategory)) setCategory(nextCategory);
+    };
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
@@ -60,7 +71,9 @@ function App() {
   return (
     <AppShell>
       <main className="main">
-        {detail ? (
+        {route === "#/about" ? (
+          <AboutPage />
+        ) : detail ? (
           <RecipeDetailPage recipe={detail} />
         ) : route === "#/backstage" ? (
           <BackstagePage
@@ -74,7 +87,8 @@ function App() {
           />
         ) : (
           <>
-            <section className="hero-copy">
+            <section className="home-hero-band">
+              <div className="hero-copy">
               <div>
                 <p className="eyebrow">Your tiny cooking sidekick</p>
                 <h1>What are we cooking tonight?</h1>
@@ -83,8 +97,14 @@ function App() {
                 Good food does not need a grand plan. Pick a mood, pick a timer,
                 and let dinner find you.
               </p>
+              </div>
+              <p className="pixel-hero-title">Everyday cravings, simplified.</p>
+              <section className="latest-panel" aria-labelledby="latest-heading">
+                <div className="latest-heading"><p className="eyebrow">Fresh from the kitchen</p><h2 id="latest-heading">Latest recipes</h2></div>
+                <div className="latest-grid">{recipeCollection.slice(0, 3).map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}<a className="view-all-action" href="#/">View all recipes <span aria-hidden="true">→</span></a></div>
+              </section>
             </section>
-            <div className="wave-strip" aria-hidden="true" />
+            <section className="discovery-section">
             <RecipeFilters
               category={category}
               timeBand={timeBand}
@@ -123,11 +143,18 @@ function App() {
             ) : (
               <RecipeEmptyState />
             )}
+            </section>
+            <section className="explanation-band" aria-labelledby="explanation-heading"><div className="content-rail"><p className="eyebrow">A meal, refined</p><h2 id="explanation-heading">What is renmeshi (錬メシ)?</h2><p>Renmeshi is a small cooking sidekick for the moments when you want something good but do not want to overthink it.</p><p>Recipes, art, and code come together here to turn everyday cravings into a doable next step.</p></div></section>
+            <section className="categories-band" aria-labelledby="categories-heading"><div className="content-rail"><p className="eyebrow">Choose your quest</p><h2 id="categories-heading">Browse by appetite</h2><div className="category-panel">{recipeCategoryLinks.map((item) => <a className="category-link" href={item.href} key={item.category}><span className="category-art"><img src={item.imageSrc} alt={item.imageAlt} /></span><strong>{item.label}</strong></a>)}</div></div></section>
           </>
         )}
       </main>
     </AppShell>
   );
+}
+
+function AboutPage() {
+  return <div className="about-page"><section className="about-story content-rail"><div className="portrait-frame"><img src={aboutUsContent.portraitSrc} alt={aboutUsContent.portraitAlt} /></div><div className="about-copy"><p className="eyebrow">The people behind the pantry</p><h1>{aboutUsContent.heading}</h1>{aboutUsContent.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section><section className="statement-band"><p>{aboutUsContent.statement}</p></section></div>
 }
 
 export function LegacyBackstage({
