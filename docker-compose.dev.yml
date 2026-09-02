@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      PORT: 3001
+      RENMESHI_STORE_PATH: data/recipes.json
+      RENMESHI_UPLOAD_DIR: data/uploads/recipes
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

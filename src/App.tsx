@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import {
   categories,
-  recipes,
   type Recipe,
   type RecipeCategory,
 } from "./models/recipe";
@@ -35,7 +34,7 @@ function App() {
   });
   const [timeBand, setTimeBand] = useState<TimeBand | "all">("all");
   const [search, setSearch] = useState("");
-  const [recipeCollection, setRecipeCollection] = useState(recipes);
+  const [recipeCollection, setRecipeCollection] = useState<Recipe[]>([]);
   const [recipesLoading, setRecipesLoading] = useState(true);
   const [recipeLoadError, setRecipeLoadError] = useState("");
 
@@ -89,18 +88,11 @@ function App() {
           <>
             <section className="home-hero-band">
               <div className="hero-copy">
-              <div>
-                <p className="eyebrow">Your tiny cooking sidekick</p>
                 <h1>What are we cooking tonight?</h1>
+                <p className="pixel-hero-title">Everyday cravings, <span>simplified.</span></p>
               </div>
-              <p>
-                Good food does not need a grand plan. Pick a mood, pick a timer,
-                and let dinner find you.
-              </p>
-              </div>
-              <p className="pixel-hero-title">Everyday cravings, simplified.</p>
               <section className="latest-panel" aria-labelledby="latest-heading">
-                <div className="latest-heading"><p className="eyebrow">Fresh from the kitchen</p><h2 id="latest-heading">Latest recipes</h2></div>
+                <div className="latest-heading"><h2 id="latest-heading">Latest recipes</h2></div>
                 <div className="latest-grid">{recipeCollection.slice(0, 3).map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}<a className="view-all-action" href="#/">View all recipes <span aria-hidden="true">→</span></a></div>
               </section>
             </section>
@@ -144,8 +136,8 @@ function App() {
               <RecipeEmptyState />
             )}
             </section>
-            <section className="explanation-band" aria-labelledby="explanation-heading"><div className="content-rail"><p className="eyebrow">A meal, refined</p><h2 id="explanation-heading">What is renmeshi (錬メシ)?</h2><p>Renmeshi is a small cooking sidekick for the moments when you want something good but do not want to overthink it.</p><p>Recipes, art, and code come together here to turn everyday cravings into a doable next step.</p></div></section>
-            <section className="categories-band" aria-labelledby="categories-heading"><div className="content-rail"><p className="eyebrow">Choose your quest</p><h2 id="categories-heading">Browse by appetite</h2><div className="category-panel">{recipeCategoryLinks.map((item) => <a className="category-link" href={item.href} key={item.category}><span className="category-art"><img src={item.imageSrc} alt={item.imageAlt} /></span><strong>{item.label}</strong></a>)}</div></div></section>
+            <section className="explanation-band" aria-labelledby="explanation-heading"><div className="content-rail"><h2 id="explanation-heading">What is renmeshi (錬メシ)?</h2><p>Renmeshi is a small cooking sidekick for the moments when you want something good but do not want to overthink it.</p><p>Recipes, art, and code come together here to turn everyday cravings into a doable next step.</p></div></section>
+            <section className="categories-band" aria-labelledby="categories-heading"><div className="content-rail"><h2 id="categories-heading">Browse by appetite</h2><div className="category-panel">{recipeCategoryLinks.map((item) => <a className="category-link" href={item.href} key={item.category}><span className="category-art"><img src={item.imageSrc} alt={item.imageAlt} /></span><strong>{item.label}</strong></a>)}</div></div></section>
           </>
         )}
       </main>
@@ -154,7 +146,7 @@ function App() {
 }
 
 function AboutPage() {
-  return <div className="about-page"><section className="about-story content-rail"><div className="portrait-frame"><img src={aboutUsContent.portraitSrc} alt={aboutUsContent.portraitAlt} /></div><div className="about-copy"><p className="eyebrow">The people behind the pantry</p><h1>{aboutUsContent.heading}</h1>{aboutUsContent.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section><section className="statement-band"><p>{aboutUsContent.statement}</p></section></div>
+  return <div className="about-page"><section className="about-story content-rail"><div className="portrait-frame"><img src={aboutUsContent.portraitSrc} alt={aboutUsContent.portraitAlt} /></div><div className="about-copy"><h1>{aboutUsContent.heading}</h1>{aboutUsContent.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section><section className="statement-band"><p>{aboutUsContent.statement}</p></section></div>
 }
 
 export function LegacyBackstage({
@@ -221,7 +213,6 @@ export function LegacyBackstage({
         className="detail-panel"
         style={{ maxWidth: 480, margin: "60px auto" }}
       >
-        <p className="eyebrow">Private kitchen</p>
         <h1>Backstage</h1>
         <p style={{ margin: "20px 0" }}>Sign in to manage tonight's menu.</p>
         <form
@@ -274,7 +265,6 @@ export function LegacyBackstage({
     <>
       <div className="detail-header">
         <div>
-          <p className="eyebrow">The private kitchen</p>
           <h1>Backstage</h1>
         </div>
         <button

@@ -1,10 +1,11 @@
 import { createServer } from 'node:http'
 import { signIn, signOut, sessionFromHeaders } from './auth/auth-service.js'
-import { handleError, readJson } from './http/router.js'
+import { handleError, readJson, readMultipart } from './http/router.js'
 import { sendJson } from './http/response.js'
 import { getPublicRecipes } from './recipes/recipe-read-service.js'
 import { readHistory, writeRecipe } from './recipes/recipe-routes.js'
 import { seedRecipes } from './storage/seed.js'
+import { serveRecipeImage } from './recipes/recipe-image-routes.js'
 
 const port = Number(process.env.PORT ?? 3001)
 const allowedOrigins = new Set([process.env.RENMESHI_WEB_ORIGIN ?? 'http://localhost:5173', 'http://127.0.0.1:5173'])
@@ -19,6 +20,7 @@ const server = createServer(async (request, response) => {
     const url = new URL(request.url ?? '/', `http://${request.headers.host ?? 'localhost'}`)
     if (request.method === 'GET' && url.pathname === '/api/health') return sendJson(response, 200, { ok: true })
     if (request.method === 'GET' && url.pathname === '/api/recipes') return sendJson(response, 200, await getPublicRecipes())
+    if (url.pathname.startsWith('/uploads/recipes/')) return serveRecipeImage(request, response, decodeURIComponent(url.pathname.slice('/uploads/recipes/'.length)))
     if (request.method === 'GET' && url.pathname === '/api/history') return sendJson(response, 200, await readHistory(request.headers))
     if (request.method === 'POST' && url.pathname === '/api/auth/sign-in') {
       const body = await readJson(request) as { actor?: string; password?: string }
@@ -30,8 +32,16 @@ const server = createServer(async (request, response) => {
       if (session) signOut(session.token)
       return sendJson(response, 204, {})
     }
-    if (request.method === 'POST' && url.pathname === '/api/recipes') return sendJson(response, 201, await writeRecipe(request.headers, await readJson(request), 'created'))
-    if (request.method === 'PUT' && url.pathname.startsWith('/api/recipes/')) return sendJson(response, 200, await writeRecipe(request.headers, await readJson(request), 'edited'))
+    if ((request.method === 'POST' && url.pathname === '/api/recipes') || (request.method === 'PUT' && url.pathname.startsWith('/api/recipes/'))) {
+      const multipart = (request.headers['content-type'] ?? '').startsWith('multipart/form-data')
+      if (multipart) {
+        const body = await readMultipart(request)
+        const value = JSON.parse(body.fields.recipe ?? '{}')
+        if (request.method === 'PUT') value.id = url.pathname.slice('/api/recipes/'.length)
+        return sendJson(response, request.method === 'POST' ? 201 : 200, await writeRecipe(request.headers, value, request.method === 'POST' ? 'created' : 'edited', body.file ? { data: body.file.data, contentType: body.file.contentType } : undefined))
+      }
+      return sendJson(response, request.method === 'POST' ? 201 : 200, await writeRecipe(request.headers, await readJson(request), request.method === 'POST' ? 'created' : 'edited'))
+    }
     sendJson(response, 404, { error: 'Not found' })
   } catch (error) {
     handleError(response, error)

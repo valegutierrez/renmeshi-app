@@ -2,6 +2,7 @@ import { badRequest, unauthorized } from '../http/errors.js'
 import { requireAdmin } from '../auth/require-admin.js'
 import { getRecipeHistory } from '../audit/history-service.js'
 import { listRecipes, saveRecipe } from '../storage/recipe-store.js'
+import { removeRecipeImage, storeRecipeImage } from '../storage/recipe-image-store.js'
 import type { IncomingHttpHeaders } from 'node:http'
 import type { Recipe, RecipeCategory } from '../../src/models/recipe.js'
 
@@ -23,10 +24,21 @@ export async function readHistory(headers: IncomingHttpHeaders) {
   if (!requireAdmin(headers)) unauthorized('Admin authentication required')
   return getRecipeHistory()
 }
-export async function writeRecipe(headers: IncomingHttpHeaders, value: unknown, action: 'created' | 'edited') {
+export async function writeRecipe(headers: IncomingHttpHeaders, value: unknown, action: 'created' | 'edited', upload?: { data: Buffer; contentType: string }) {
   const session = requireAdmin(headers)
   if (!session) unauthorized('Admin authentication required')
   const recipe = validateRecipe(value)
-  await saveRecipe(recipe, action, session.actor)
-  return recipe
+  if (action === 'created' && !upload) badRequest('A recipe image is required')
+  const existing = action === 'edited' ? (await listRecipes()).find((item) => item.id === recipe.id) : undefined
+  let image = recipe.image ?? existing?.image
+  if (upload) image = await storeRecipeImage(upload.data, upload.contentType)
+  const nextRecipe = image ? { ...recipe, image } : recipe
+  try {
+    await saveRecipe(nextRecipe, action, session.actor)
+  } catch (error) {
+    if (upload) await removeRecipeImage(image)
+    throw error
+  }
+  if (upload && action === 'edited' && existing?.image && existing.image.key !== image?.key) await removeRecipeImage(existing.image)
+  return nextRecipe
 }

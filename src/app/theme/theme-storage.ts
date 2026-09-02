@@ -1,10 +1,11 @@
-import type { ThemePreference } from '../../models/theme'
+import { themePreferences, type ThemePreference } from '../../models/theme'
 
 const themeKey = 'renmeshi-theme'
 
 export function readThemePreference(): ThemePreference {
   try {
-    return window.localStorage.getItem(themeKey) === 'dark' ? 'dark' : 'light'
+    const value = window.localStorage.getItem(themeKey)
+    return themePreferences.includes(value as ThemePreference) ? value as ThemePreference : 'light'
   } catch {
     return 'light'
   }

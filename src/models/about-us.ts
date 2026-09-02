@@ -32,7 +32,7 @@ export const aboutUsContent: AboutUsContent = {
   ],
   portraitSrc: portrait,
   portraitAlt: 'Vale and Danno together in their kitchen',
-  statement: 'Recipes, pixel art, and code made with care for ordinary hungry days.',
+  statement: 'Every recipe, pixel art illustration, and line of code on this site was made with great care. We hope Renmeshi helps you decide what to cook next!',
   footerMessage: 'Made for the meals that make a day feel better.',
 }
 

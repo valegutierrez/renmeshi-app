@@ -6,9 +6,10 @@ import type { Recipe } from '../../src/models/recipe.js'
 
 let store: typeof import('../../server/storage/recipe-store.js')
 let storeDirectory: string
+const image = { key: '11111111-1111-4111-8111-111111111111.png', contentType: 'image/png' as const, width: 640, height: 480, url: '/uploads/recipes/11111111-1111-4111-8111-111111111111.png' }
 const recipe: Recipe = {
   id: 'integration-recipe', name: 'Integration Recipe', category: 'Mains', cookingTimeMinutes: 20, baseServings: 2,
-  keywords: ['integration'], accent: 'teal', ingredients: [{ id: 'one', name: 'rice', quantity: 1, unit: 'cup', displayText: '1 cup rice', scalable: true }], instructions: ['Cook rice'],
+  keywords: ['integration'], ingredients: [{ id: 'one', name: 'rice', quantity: 1, unit: 'cup', displayText: '1 cup rice', scalable: true }], instructions: ['Cook rice'], image,
 }
 
 beforeAll(async () => {
@@ -38,10 +39,19 @@ describe('recipe management persistence', () => {
     expect(await store.listHistory()).toHaveLength(1)
   })
 
-  it('records an edit after replacing the stored recipe', async () => {
-    const edited = { ...recipe, name: 'Edited Integration Recipe' }
-    await store.saveRecipe(edited, 'edited', 'test-admin')
+  it('replaces the stored recipe without adding a history entry', async () => {
+    const edited = { ...recipe, name: 'Edited Integration Recipe', image: { ...image, key: '22222222-2222-4222-8222-222222222222.jpg', contentType: 'image/jpeg' as const, url: '/uploads/recipes/22222222-2222-4222-8222-222222222222.jpg' } }
+    await store.saveRecipe(edited, 'edited', 'second-admin')
     expect((await store.listRecipes())[0].name).toBe(edited.name)
-    expect(await store.listHistory()).toHaveLength(2)
+    expect((await store.listRecipes())[0].image).toEqual(edited.image)
+    expect(await store.listHistory()).toHaveLength(1)
+    expect((await store.listHistory())[0].actor).toBe('test-admin')
+  })
+
+  it('rejects malformed image references without changing the store or history', async () => {
+    const invalid = { ...recipe, image: { ...image, key: '../outside.png', url: '/uploads/recipes/../outside.png' } }
+    await expect(store.saveRecipe(invalid, 'edited', 'test-admin')).rejects.toThrow('image reference')
+    expect((await store.listRecipes())[0].image).toEqual(expect.objectContaining({ key: '22222222-2222-4222-8222-222222222222.jpg' }))
+    expect(await store.listHistory()).toHaveLength(1)
   })
 })

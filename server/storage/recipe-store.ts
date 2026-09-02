@@ -31,6 +31,11 @@ async function writeStore(data: StoreData): Promise<void> {
   await rename(temporaryPath, storePath)
 }
 
+function validateImageReference(recipe: Recipe): void {
+  if (!recipe.image) return
+  if (!/^[a-f0-9-]+\.(?:jpg|png|webp)$/.test(recipe.image.key) || recipe.image.url !== `/uploads/recipes/${recipe.image.key}`) throw new Error('Recipe image reference is invalid')
+}
+
 function enqueue(operation: () => Promise<void>): Promise<void> {
   const next = writeQueue.then(operation)
   writeQueue = next.catch(() => undefined)
@@ -47,13 +52,14 @@ export async function listHistory(): Promise<RecipeHistoryEntry[]> {
 
 export async function saveRecipe(recipe: Recipe, action: RecipeHistoryEntry['action'], actor: string): Promise<void> {
   await enqueue(async () => {
+    validateImageReference(recipe)
     const data = await readStore()
     const index = data.recipes.findIndex((item) => item.id === recipe.id)
     if (action === 'created' && index >= 0) throw new Error('Recipe already exists')
     if (action === 'edited' && index < 0) throw new Error('Recipe does not exist')
     if (index >= 0) data.recipes[index] = recipe
     else data.recipes.push(recipe)
-    data.history.unshift({ id: crypto.randomUUID(), recipeId: recipe.id, recipeName: recipe.name, action, actor, timestamp: new Date().toISOString() })
+    if (action === 'created') data.history.unshift({ id: crypto.randomUUID(), recipeId: recipe.id, recipeName: recipe.name, action, actor, timestamp: new Date().toISOString() })
     await writeStore(data)
   })
 }

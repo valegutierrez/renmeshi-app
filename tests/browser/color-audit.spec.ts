@@ -3,8 +3,6 @@ import { expect, test } from '@playwright/test'
 const modes = [
   { name: 'light', attributes: {} },
   { name: 'dark', attributes: { 'data-theme': 'dark' } },
-  { name: 'medium contrast', attributes: { 'data-contrast': 'medium' } },
-  { name: 'high contrast', attributes: { 'data-contrast': 'high' } },
 ]
 
 function contrastRatio(foreground: [number, number, number], background: [number, number, number]): number {

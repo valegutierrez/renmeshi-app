@@ -24,7 +24,7 @@ function token(): string | null {
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers = new Headers(options.headers)
-  headers.set('content-type', 'application/json')
+  if (!(options.body instanceof FormData)) headers.set('content-type', 'application/json')
   const sessionToken = token()
   if (sessionToken) headers.set('authorization', `Bearer ${sessionToken}`)
   const response = await fetch(`${apiBase}${path}`, { ...options, headers })
@@ -58,6 +58,12 @@ export async function fetchHistory(): Promise<RecipeHistoryEntry[]> {
   return request<RecipeHistoryEntry[]>('/api/history')
 }
 
-export async function saveRecipeToServer(recipe: Recipe, editing: boolean): Promise<Recipe> {
-  return request<Recipe>(editing ? `/api/recipes/${recipe.id}` : '/api/recipes', { method: editing ? 'PUT' : 'POST', body: JSON.stringify(recipe) })
+export async function saveRecipeToServer(recipe: Recipe, editing: boolean, image?: File): Promise<Recipe> {
+  if (!image) return request<Recipe>(editing ? `/api/recipes/${recipe.id}` : '/api/recipes', { method: editing ? 'PUT' : 'POST', body: JSON.stringify(recipe) })
+  const form = new FormData()
+  const metadata = { ...recipe }
+  delete metadata.image
+  form.set('recipe', JSON.stringify(metadata))
+  form.set('image', image)
+  return request<Recipe>(editing ? `/api/recipes/${recipe.id}` : '/api/recipes', { method: editing ? 'PUT' : 'POST', body: form })
 }
