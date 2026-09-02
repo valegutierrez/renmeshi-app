@@ -1,6 +1,5 @@
 import { useState, type PropsWithChildren } from 'react'
 import { ThemeToggle } from '../components/shared/ThemeToggle'
-import logo from '../assets/renmeshi.svg'
 import wordmark from '../assets/renmeshi letters.svg'
 
 export function AppShell({ children }: PropsWithChildren) {
@@ -26,7 +25,7 @@ export function AppShell({ children }: PropsWithChildren) {
       {children}
       <footer className="site-footer">
         <div className="footer-inner">
-          <img src={logo} alt="Renmeshi" />
+          <span className="footer-logo" role="img" aria-label="Renmeshi" />
           <p>Made for the meals that make a day feel better.</p>
         </div>
       </footer>

@@ -5,8 +5,9 @@ const sessions = new Map<string, Session>()
 const sessionDuration = 8 * 60 * 60 * 1000
 
 export function signIn(actor: string, password: string): string | null {
-  const expectedActor = process.env.RENMESHI_ADMIN_NAME ?? 'demo-admin'
-  const expectedPassword = process.env.RENMESHI_ADMIN_PASSWORD ?? 'renmeshi-demo'
+  const expectedActor = process.env.RENMESHI_ADMIN_NAME
+  const expectedPassword = process.env.RENMESHI_ADMIN_PASSWORD
+  if (!expectedActor || !expectedPassword) return null
   if (actor.trim() !== expectedActor || password !== expectedPassword) return null
   const token = crypto.randomUUID()
   sessions.set(token, { actor: expectedActor, expiresAt: Date.now() + sessionDuration })

@@ -43,17 +43,10 @@ npm run server
 Open the Vite URL, normally `http://localhost:5173`. The API runs at
 `http://localhost:3001`; set `VITE_API_BASE_URL` if it runs elsewhere.
 
-The development Backstage fixture is:
-
-```text
-Admin name: demo-admin
-Password: renmeshi-demo
-```
-
-Configure a different admin or datastore by exporting `RENMESHI_ADMIN_NAME`,
-`RENMESHI_ADMIN_PASSWORD`, `RENMESHI_STORE_PATH`, and `PORT` before `npm run server`.
-The same values are documented in `.env.example`. Recipe data is stored under `data/`,
-which is ignored by Git.
+Configure Backstage credentials, the datastore, and the port in the local `.env` file
+before running `npm run server`. The server refuses authentication when the admin
+credentials are not configured. Keep `.env` out of GitHub; never commit it or paste its
+values into documentation. Recipe data is stored under `data/`, which is ignored by Git.
 
 Available checks:
 
@@ -64,5 +57,13 @@ npm test
 npm run test:browser
 ```
 
+Palette changes must use the Material Theme roles defined in
+[the color contract](specs/004-material-theme-color-audit/contracts/ui-color-contract.md).
+The source audit is covered by `npm test -- tests/unit/color-policy.test.ts`, while
+four-mode readability and overflow are covered by
+`npm run test:browser -- tests/browser/color-audit.spec.ts`. The constitution remains
+the governing policy for any proposed color exception.
+
 `test:browser` starts the configured Vite and API servers automatically when they are not
-already running. Install Playwright Chromium once with `npx playwright install chromium`.
+already running, loading credentials from the local `.env`. Install Playwright Chromium
+once with `npx playwright install chromium`.

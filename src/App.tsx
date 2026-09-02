@@ -167,8 +167,8 @@ export function LegacyBackstage({
   const [signedIn, setSignedIn] = useState(
     () => getServerAuthStatus().authenticated,
   );
-  const [name, setName] = useState("demo-admin");
-  const [password, setPassword] = useState("renmeshi-demo");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [history, setHistory] = useState<RecipeHistoryEntry[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -382,7 +382,6 @@ export function LegacyBackstage({
                 keywords: form.name.toLowerCase().split(/\s+/).filter(Boolean),
                 ingredients,
                 instructions: instructionLines,
-                accent: "teal",
               };
               try {
                 const saved = await saveRecipeToServer(
