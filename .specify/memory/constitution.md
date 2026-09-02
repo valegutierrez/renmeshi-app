@@ -1,25 +1,15 @@
 <!--
 Sync Impact Report
-Version change: 1.0.0 → 1.1.0
+Version change: 1.1.1 → 1.1.2
 Modified principles:
-  - I. Retro-Pixel Identity, Never Generic → I. Retro-Pixel Identity and Reference Assets
-  - II. Material Theme as Single Source of Truth → II. Material Theme with Mockup-Inspired Expression
-Added principles:
-  - VIII. About Us and Product Story
+  - I. Retro-Pixel Identity and Reference Assets: require one canonical seigaiha asset
+  - II. Material Theme with Mockup-Inspired Expression: bind the pattern to Outline Variant and the logo to approved theme variants
 Added sections:
-  - Core Principle VIII (About Us and Product Story)
-  - Approved Visual Assets and Mockup Interpretation under Technology Stack & Design System
-  - Core Principles I–VII (Retro-Pixel Identity, Material Theme as Single Source of Truth,
-    Accessibility & Theming Are Non-Negotiable, Fast Client-Side First Recipe Discovery,
-    Simplicity & Practicality Over Cleverness, Secure Auditable Admin Dashboard,
-    Test What Breaks Dinner Plans)
-  - Technology Stack & Design System (incl. mandatory TypeScript)
-  - Development Workflow (incl. tests only after user-approved code)
-  - Governance
+  - Canonical Seigaiha Pattern and Logo Color Variants under Technology Stack & Design System
 Removed sections: none (template placeholders replaced)
 Project owners: Daniel (senior SWE), Valentina (front-end/UX/pixel artist)
 Follow-up TODOs:
-  - Implement the About Us page and integrate the approved image, pixel-art, logo, and font assets in a future implementation task.
+  - None
 -->
 
 # Renmeshi (錬メシ) Constitution
@@ -30,12 +20,18 @@ Follow-up TODOs:
 Every UI surface MUST honor the 16-bit/pixel-art aesthetic (SNES, Kirby, FFXIV, and
 Ragnarok Online influences). Headings MUST use Raleway, body text MUST use Poppins,
 and tags/subheadings MUST use the supplied `pixelpori.ttf` font — no font substitutions
-without an explicit, documented design exception. Decorative seigaiha wave patterns
-MUST be used as section backgrounds wherever called for in the approved design direction.
+without an explicit, documented design exception. Decorative seigaiha wave patterns MUST
+use only `src/assets/seigaiha-pattern.svg`; CSS-generated, inline, duplicated, or alternative
+seigaiha patterns are forbidden. The SVG's `currentColor` MUST be supplied by the Material
+Theme `Outline Variant` semantic token in every theme and contrast mode.
 The supplied `appetizer.png`, `main-dish.png`, `side-dish.png`, and `dessert.png` assets
 MUST be used for the corresponding homepage category illustrations unless an approved
 design revision replaces them. The supplied `renmeshi.svg` MUST be used for the square
-footer logo and `renmeshi letters.svg` MUST be used for the header wordmark. Any component
+footer logo and `renmeshi letters.svg` MUST be used for the header wordmark. The `currentColor`
+of `src/assets/renmeshi.svg` MUST use only the Material Theme `On Primary` or `Primary`
+semantic token, selected according to the surface where the logo appears. In particular,
+when the footer background is `Primary`, the footer logo MUST use the `On Primary` variant.
+Any component
 that reproduces generic corporate/SaaS visual patterns instead of the game-cozy identity
 MUST be rejected in review.
 
@@ -51,7 +47,9 @@ mockups MUST be treated as visual inspiration for layout, hierarchy, spacing, as
 placement, responsive behavior, and overall tone; they MUST NOT override Material theme
 tokens, WCAG requirements, or the approved asset rules in this constitution. Implementations
 MUST preserve the mockups' intentional cozy editorial character while adapting details
-where necessary for accessibility, responsive usability, or theme parity.
+where necessary for accessibility, responsive usability, or theme parity. The canonical
+seigaiha asset MUST be rendered without introducing a second pattern color; its only
+applied color is the active `Outline Variant` token.
 
 ### III. Accessibility & Theming Are Non-Negotiable
 Every screen MUST be fully usable in both light and dark themes with no missed tokens.
@@ -114,6 +112,13 @@ workflow or introducing user accounts, social features, or unrelated marketing f
   `src/assets/pixelart/dessert.png`, `src/assets/renmeshi.svg`, and
   `src/assets/renmeshi letters.svg`. Their homepage, header, and footer roles are governed
   by Principle I.
+- **Canonical Seigaiha Pattern**: `src/assets/seigaiha-pattern.svg` is the only permitted
+  seigaiha pattern in the application. It MUST be used wherever a seigaiha background is
+  required, with `currentColor` mapped exclusively to the Material Theme `Outline Variant`
+  token across light, dark, medium-contrast, and high-contrast modes.
+- **Logo color variants**: `src/assets/renmeshi.svg` MUST use `currentColor` mapped only to
+  the Material Theme `On Primary` or `Primary` token, selected for sufficient contrast with
+  its surface. A footer using the `Primary` background MUST render the logo with `On Primary`.
 - **Design references**: `.specify/design-mockups/` contains inspiration for the public
   site's composition and visual tone. Mockups are references, not a second source of truth
   for colors or accessibility behavior.
@@ -150,4 +155,4 @@ constitution; complexity must be justified against Principle V.
 
 **Project Owners**: Daniel (senior SWE), Valentina (front-end/UX/pixel artist)
 
-**Version**: 1.1.0 | **Ratified**: 2026-08-27 | **Last Amended**: 2026-09-01
+**Version**: 1.1.2 | **Ratified**: 2026-08-27 | **Last Amended**: 2026-09-02
