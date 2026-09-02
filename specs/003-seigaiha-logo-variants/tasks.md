@@ -12,9 +12,9 @@
 
 **Purpose**: Establish the feature test surfaces and confirm the existing asset/theme paths before implementation.
 
-- [ ] T001 [P] Add the feature asset and theme validation test file at `tests/unit/visual-assets.test.ts`.
-- [ ] T002 [P] Add the feature browser validation file at `tests/browser/visual-assets.spec.ts`.
-- [ ] T003 [P] Record the canonical asset and token invariants in `specs/003-seigaiha-logo-variants/contracts/ui-visual-contract.md` for implementation traceability.
+- [X] T001 [P] Add the feature asset and theme validation test file at `tests/unit/visual-assets.test.ts`.
+- [X] T002 [P] Add the feature browser validation file at `tests/browser/visual-assets.spec.ts`.
+- [X] T003 [P] Record the canonical asset and token invariants in `specs/003-seigaiha-logo-variants/contracts/ui-visual-contract.md` for implementation traceability.
 
 ---
 
@@ -24,10 +24,10 @@
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel.
 
-- [ ] T004 Define `Primary`, `On Primary`, and `Outline Variant` semantic CSS variables for light, dark, medium-contrast, and high-contrast modes in `src/app/theme/tokens.css`.
-- [ ] T005 [P] Add stable semantic aliases for the new theme variables in `src/App.css` without changing unrelated palette behavior in `src/App.css`.
-- [ ] T006 [P] Verify the canonical SVG files exist and retain `fill:currentColor` in `src/assets/seigaiha-pattern.svg` and `src/assets/renmeshi.svg`.
-- [ ] T007 Implement unit assertions for token presence and four-mode token coverage in `tests/unit/visual-assets.test.ts`.
+- [X] T004 Define `Primary`, `On Primary`, and `Outline Variant` semantic CSS variables for light, dark, medium-contrast, and high-contrast modes in `src/app/theme/tokens.css`.
+- [X] T005 [P] Add stable semantic aliases for the new theme variables in `src/App.css` without changing unrelated palette behavior in `src/App.css`.
+- [X] T006 [P] Verify the canonical SVG files exist and retain `fill:currentColor` in `src/assets/seigaiha-pattern.svg` and `src/assets/renmeshi.svg`.
+- [X] T007 Implement unit assertions for token presence and four-mode token coverage in `tests/unit/visual-assets.test.ts`.
 
 ---
 
@@ -39,14 +39,14 @@
 
 ### Tests for User Story 1
 
-- [ ] T008 [P] [US1] Add source-level assertions that seigaiha surfaces reference only `src/assets/seigaiha-pattern.svg` and reject generated or alternate pattern treatments in `tests/unit/visual-assets.test.ts`.
-- [ ] T009 [P] [US1] Add browser assertions for visible seigaiha rendering and `Outline Variant` color resolution across light, dark, medium-contrast, and high-contrast modes in `tests/browser/visual-assets.spec.ts`.
+- [X] T008 [P] [US1] Add source-level assertions that seigaiha surfaces reference only `src/assets/seigaiha-pattern.svg` and reject generated or alternate pattern treatments in `tests/unit/visual-assets.test.ts`.
+- [X] T009 [P] [US1] Add browser assertions for visible seigaiha rendering and `Outline Variant` color resolution across light, dark, medium-contrast, and high-contrast modes in `tests/browser/visual-assets.spec.ts`.
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Replace the existing generated wave decoration with a canonical `src/assets/seigaiha-pattern.svg` background and bind its color to `Outline Variant` in `src/App.css`.
-- [ ] T011 [US1] Apply the canonical seigaiha treatment to each existing required decorative surface while preserving spacing and responsive behavior in `src/App.css`.
-- [ ] T012 [US1] Expose deterministic selectors or accessible surface hooks needed by the seigaiha browser checks without duplicating the pattern markup in `src/App.tsx` and `src/app/AppShell.tsx`.
+- [X] T010 [US1] Replace the existing generated wave decoration with a canonical `src/assets/seigaiha-pattern.svg` background and bind its color to `Outline Variant` in `src/App.css`.
+- [X] T011 [US1] Apply the canonical seigaiha treatment to each existing required decorative surface while preserving spacing and responsive behavior in `src/App.css`.
+- [X] T012 [US1] Expose deterministic selectors or accessible surface hooks needed by the seigaiha browser checks without duplicating the pattern markup in `src/App.tsx` and `src/app/AppShell.tsx`.
 
 **Checkpoint**: User Story 1 is independently functional and verifiable as the MVP.
 
@@ -60,14 +60,14 @@
 
 ### Tests for User Story 2
 
-- [ ] T013 [P] [US2] Add source-level assertions for `renmeshi.svg` usage, permitted `Primary`/`On Primary` bindings, and continued `renmeshi letters.svg` wordmark usage in `tests/unit/visual-assets.test.ts`.
-- [ ] T014 [P] [US2] Add browser assertions for footer background/logo pairing, logo legibility, wordmark preservation, and four-mode behavior in `tests/browser/visual-assets.spec.ts`.
+- [X] T013 [P] [US2] Add source-level assertions for `renmeshi.svg` usage, permitted `Primary`/`On Primary` bindings, and continued `renmeshi letters.svg` wordmark usage in `tests/unit/visual-assets.test.ts`.
+- [X] T014 [P] [US2] Add browser assertions for footer background/logo pairing, logo legibility, wordmark preservation, and four-mode behavior in `tests/browser/visual-assets.spec.ts`.
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Bind the footer background to the semantic `Primary` token and the `renmeshi.svg` currentColor to `On Primary` in `src/App.css`.
-- [ ] T016 [US2] Preserve the header `renmeshi letters.svg` wordmark and assign any square-logo surface to only the allowed `Primary` or `On Primary` token in `src/app/AppShell.tsx` and `src/App.css`.
-- [ ] T017 [US2] Preserve logo artwork, aspect ratio, pixel rendering, and narrow-screen layout behavior in `src/app/AppShell.tsx` and `src/App.css`.
+- [X] T015 [US2] Bind the footer background to the semantic `Primary` token and the `renmeshi.svg` currentColor to `On Primary` in `src/App.css`.
+- [X] T016 [US2] Preserve the header `renmeshi letters.svg` wordmark and assign any square-logo surface to only the allowed `Primary` or `On Primary` token in `src/app/AppShell.tsx` and `src/App.css`.
+- [X] T017 [US2] Preserve logo artwork, aspect ratio, pixel rendering, and narrow-screen layout behavior in `src/app/AppShell.tsx` and `src/App.css`.
 
 **Checkpoint**: User Stories 1 and 2 are independently functional and verifiable.
 
@@ -81,13 +81,13 @@
 
 ### Tests for User Story 3
 
-- [ ] T018 [P] [US3] Add regression assertions for prohibited alternate/generated seigaiha implementations and disallowed logo colors in `tests/unit/visual-assets.test.ts`.
-- [ ] T019 [P] [US3] Add responsive viewport and no-horizontal-overflow checks for the pattern and logos in `tests/browser/visual-assets.spec.ts`.
+- [X] T018 [P] [US3] Add regression assertions for prohibited alternate/generated seigaiha implementations and disallowed logo colors in `tests/unit/visual-assets.test.ts`.
+- [X] T019 [P] [US3] Add responsive viewport and no-horizontal-overflow checks for the pattern and logos in `tests/browser/visual-assets.spec.ts`.
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Add stable test identifiers or semantic class names for the canonical pattern and logo surfaces in `src/App.css` and `src/app/AppShell.tsx`.
-- [ ] T021 [US3] Document the final asset-to-token mapping and validation commands in `specs/003-seigaiha-logo-variants/quickstart.md`.
+- [X] T020 [US3] Add stable test identifiers or semantic class names for the canonical pattern and logo surfaces in `src/App.css` and `src/app/AppShell.tsx`.
+- [X] T021 [US3] Document the final asset-to-token mapping and validation commands in `specs/003-seigaiha-logo-variants/quickstart.md`.
 
 **Checkpoint**: All user stories are independently testable and the feature invariants are documented.
 
@@ -97,10 +97,10 @@
 
 **Purpose**: Validate the complete feature and protect existing behavior.
 
-- [ ] T022 [P] Run `npm run lint` and resolve only feature-related diagnostics in `src/App.css`, `src/app/AppShell.tsx`, `src/app/theme/tokens.css`, and `tests/`.
-- [ ] T023 [P] Run `npm run build` and confirm the canonical SVG imports and semantic token references compile successfully in `src/app/AppShell.tsx`, `src/app/theme/tokens.css`, and `src/App.css`.
-- [ ] T024 [P] Run `npm test` and `npm run test:browser` using the scenarios in `specs/003-seigaiha-logo-variants/quickstart.md`.
-- [ ] T025 Review the final implementation against [contracts/ui-visual-contract.md](contracts/ui-visual-contract.md) and update `specs/003-seigaiha-logo-variants/plan.md` only if an approved design decision changed.
+- [X] T022 [P] Run `npm run lint` and resolve only feature-related diagnostics in `src/App.css`, `src/app/AppShell.tsx`, `src/app/theme/tokens.css`, and `tests/`.
+- [X] T023 [P] Run `npm run build` and confirm the canonical SVG imports and semantic token references compile successfully in `src/app/AppShell.tsx`, `src/app/theme/tokens.css`, and `src/App.css`.
+- [X] T024 [P] Run `npm test` and `npm run test:browser` using the scenarios in `specs/003-seigaiha-logo-variants/quickstart.md`.
+- [X] T025 Review the final implementation against [contracts/ui-visual-contract.md](contracts/ui-visual-contract.md) and update `specs/003-seigaiha-logo-variants/plan.md` only if an approved design decision changed.
 
 ---
 

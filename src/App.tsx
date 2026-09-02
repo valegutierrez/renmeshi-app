@@ -104,6 +104,7 @@ function App() {
                 <div className="latest-grid">{recipeCollection.slice(0, 3).map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}<a className="view-all-action" href="#/">View all recipes <span aria-hidden="true">→</span></a></div>
               </section>
             </section>
+            <div className="wave-strip" aria-hidden="true" />
             <section className="discovery-section">
             <RecipeFilters
               category={category}
@@ -167,8 +168,8 @@ export function LegacyBackstage({
   const [signedIn, setSignedIn] = useState(
     () => getServerAuthStatus().authenticated,
   );
-  const [name, setName] = useState("demo-admin");
-  const [password, setPassword] = useState("renmeshi-demo");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [history, setHistory] = useState<RecipeHistoryEntry[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
